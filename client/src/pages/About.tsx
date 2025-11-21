@@ -12,7 +12,7 @@ export default function About() {
         <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
           <div className="max-w-7xl mx-auto px-4 text-center">
             <h1 data-testid="text-about-title" className="text-4xl md:text-5xl font-bold mb-4">
-              About GlobalVisa
+              About EGS Group
             </h1>
             <p data-testid="text-about-subtitle" className="text-xl text-white/90 max-w-3xl mx-auto">
               Your trusted partner in visa and immigration services since 2010
@@ -27,7 +27,7 @@ export default function About() {
               <div>
                 <h2 className="text-3xl font-bold mb-6">Who We Are</h2>
                 <p className="text-muted-foreground mb-4 leading-relaxed">
-                  GlobalVisa is a leading visa and immigration consultancy with over a decade of experience in helping travelers achieve their international dreams. We specialize in providing comprehensive visa services for multiple countries including India, Nepal, and Bangladesh.
+                  EGS Group is a leading visa and immigration consultancy with over a decade of experience in helping travelers achieve their international dreams. We specialize in providing comprehensive visa services for multiple countries including India, Nepal, and Bangladesh.
                 </p>
                 <p className="text-muted-foreground mb-4 leading-relaxed">
                   Our team of experienced professionals is dedicated to making your visa application process as smooth and stress-free as possible. We understand the complexities of international travel documentation and are here to guide you every step of the way.

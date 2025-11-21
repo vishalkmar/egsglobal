@@ -60,95 +60,99 @@ export default function HeroCarousel() {
   };
 
   return (
-    <div className="relative h-[500px] md:h-[600px] overflow-hidden">
-      {/* Slides */}
-      {slides.map((slide, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentSlide ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          {/* Background Image with Gradient Overlay */}
-          <div className="absolute inset-0">
-            <img
-              src={slide.image}
-              alt={slide.title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-purple-900/60 to-blue-900/80"></div>
-          </div>
+    <div className="relative overflow-hidden">
+      {/* Curved Container with Rounded Bottom */}
+      <div className="relative h-[500px] md:h-[600px] rounded-b-[3rem] md:rounded-b-[4rem] overflow-hidden shadow-2xl">
+        {/* Slides */}
+        {slides.map((slide, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentSlide ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            {/* Background Image with Subtle Overlay */}
+            <div className="absolute inset-0">
+              <img
+                src={slide.image}
+                alt={slide.title}
+                className="w-full h-full object-cover"
+              />
+              {/* Lighter, simpler gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent"></div>
+            </div>
 
-          {/* Content */}
-          <div className="relative h-full flex items-center justify-center text-center px-4">
-            <div className="max-w-4xl">
-              <h1
-                data-testid={`carousel-title-${index}`}
-                className="text-4xl md:text-6xl font-bold text-white mb-4 animate-in fade-in slide-in-from-bottom-4 duration-700"
-              >
-                {slide.title}
-              </h1>
-              <p
-                data-testid={`carousel-subtitle-${index}`}
-                className="text-lg md:text-2xl text-white/90 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100"
-              >
-                {slide.subtitle}
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
-                <Button
-                  data-testid={`button-cta1-${index}`}
-                  size="lg"
-                  className="bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 min-w-[150px]"
+            {/* Content */}
+            <div className="relative h-full flex items-center justify-center text-center px-4">
+              <div className="max-w-4xl">
+                <h1
+                  data-testid={`carousel-title-${index}`}
+                  className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg animate-in fade-in slide-in-from-bottom-4 duration-700"
                 >
-                  {slide.cta1}
-                </Button>
-                <Button
-                  data-testid={`button-cta2-${index}`}
-                  size="lg"
-                  variant="outline"
-                  className="bg-white/5 backdrop-blur-md border border-white/30 text-white hover:bg-white/10 min-w-[150px]"
+                  {slide.title}
+                </h1>
+                <p
+                  data-testid={`carousel-subtitle-${index}`}
+                  className="text-lg md:text-2xl text-white/95 mb-8 drop-shadow-md animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100"
                 >
-                  {slide.cta2}
-                </Button>
+                  {slide.subtitle}
+                </p>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+                  <Button
+                    data-testid={`button-cta1-${index}`}
+                    size="lg"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-none min-w-[150px] shadow-lg"
+                  >
+                    {slide.cta1}
+                  </Button>
+                  <Button
+                    data-testid={`button-cta2-${index}`}
+                    size="lg"
+                    variant="outline"
+                    className="bg-white/90 backdrop-blur-sm border-white text-gray-900 hover:bg-white min-w-[150px] shadow-lg"
+                  >
+                    {slide.cta2}
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
-
-      {/* Navigation Arrows */}
-      <button
-        data-testid="button-prev-slide"
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md border border-white/20 text-white p-2 rounded-full hover-elevate active-elevate-2 transition-all"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft className="w-6 h-6" />
-      </button>
-      <button
-        data-testid="button-next-slide"
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md border border-white/20 text-white p-2 rounded-full hover-elevate active-elevate-2 transition-all"
-        aria-label="Next slide"
-      >
-        <ChevronRight className="w-6 h-6" />
-      </button>
-
-      {/* Dots Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            data-testid={`button-dot-${index}`}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentSlide
-                ? "bg-white w-8"
-                : "bg-white/50 hover:bg-white/75"
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          ></button>
         ))}
+
+        {/* Navigation Arrows */}
+        <button
+          data-testid="button-prev-slide"
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-md border border-white/30 text-white p-3 rounded-full hover-elevate active-elevate-2 transition-all shadow-lg"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        <button
+          data-testid="button-next-slide"
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-md border border-white/30 text-white p-3 rounded-full hover-elevate active-elevate-2 transition-all shadow-lg"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
+
+        {/* Dots Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              data-testid={`button-dot-${index}`}
+              onClick={() => goToSlide(index)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                index === currentSlide
+                  ? "bg-white w-8"
+                  : "bg-white/60 w-2 hover:bg-white/80"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            ></button>
+          ))}
+        </div>
       </div>
     </div>
   );

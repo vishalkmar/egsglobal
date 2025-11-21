@@ -25,7 +25,7 @@ export default function Footer() {
           {/* Company Info */}
           <div>
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-md font-bold text-lg inline-block mb-4">
-              GlobalVisa
+              EGS Group
             </div>
             <p className="text-sm text-slate-400 mb-4 leading-relaxed">
               Your trusted partner for visa and immigration services. We provide comprehensive solutions for travelers worldwide, ensuring smooth and hassle-free visa processing with expert guidance at every step.
@@ -33,7 +33,7 @@ export default function Footer() {
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm text-slate-400">
                 <Mail className="w-4 h-4 text-blue-400" />
-                <span data-testid="text-email">info@globalvisa.com</span>
+                <span data-testid="text-email">info@egsgroup.com</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-slate-400">
                 <Phone className="w-4 h-4 text-blue-400" />
@@ -89,7 +89,7 @@ export default function Footer() {
         <div className="border-t border-slate-700 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-slate-400">
-              © {new Date().getFullYear()} GlobalVisa Services. All rights reserved.
+              © {new Date().getFullYear()} EGS Group. All rights reserved.
             </p>
             <div className="flex items-center gap-4">
               <a

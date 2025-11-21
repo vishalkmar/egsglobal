@@ -45,8 +45,97 @@ export default function Header() {
     >
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Login Button - Left */}
-          <div className="flex-shrink-0">
+          {/* Logo - Left */}
+          <Link href="/">
+            <div data-testid="link-logo" className="flex items-center gap-2 cursor-pointer">
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-md font-bold text-lg">
+                EGS Group
+              </div>
+            </div>
+          </Link>
+
+          {/* Desktop Navigation - Right Aligned */}
+          <div className="hidden md:flex items-center gap-8 ml-auto">
+            <nav className="flex items-center gap-8">
+              {navLinks.map((link) => (
+                <Link key={link.path} href={link.path}>
+                  <span
+                    data-testid={`link-${link.name.toLowerCase()}`}
+                    className={`text-sm font-medium transition-colors hover:text-primary relative cursor-pointer ${
+                      location === link.path ? "text-primary" : "text-foreground"
+                    }`}
+                  >
+                    {link.name}
+                    {location === link.path && (
+                      <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"></span>
+                    )}
+                  </span>
+                </Link>
+              ))}
+
+              {/* Services Dropdown */}
+              <div
+                className="relative"
+                onMouseEnter={() => setOpenDropdown("services")}
+                onMouseLeave={() => setOpenDropdown(null)}
+              >
+                <button
+                  data-testid="button-services-dropdown"
+                  className="flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary"
+                >
+                  Services
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+
+                {/* Dropdown Menu */}
+                {(openDropdown === "services" || openDropdown === "visa") && (
+                  <div className="absolute top-full left-0 mt-2 w-64 bg-card border border-card-border rounded-md shadow-lg py-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                    {serviceItems.map((item) => (
+                      <Link key={item.path} href={item.path}>
+                        <span
+                          data-testid={`link-service-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
+                          className="block px-4 py-2 text-sm hover-elevate active-elevate-2 transition-colors cursor-pointer"
+                        >
+                          {item.name}
+                        </span>
+                      </Link>
+                    ))}
+
+                    {/* Visa Sub-dropdown */}
+                    <div
+                      className="relative"
+                      onMouseEnter={() => setOpenDropdown("visa")}
+                      onMouseLeave={() => setOpenDropdown("services")}
+                    >
+                      <button
+                        data-testid="button-visa-submenu"
+                        className="w-full flex items-center justify-between px-4 py-2 text-sm hover-elevate active-elevate-2 transition-colors"
+                      >
+                        Visa
+                        <ChevronDown className="w-4 h-4 -rotate-90" />
+                      </button>
+
+                      {openDropdown === "visa" && (
+                        <div className="absolute left-full top-0 ml-1 w-48 bg-card border border-card-border rounded-md shadow-lg py-2 animate-in fade-in slide-in-from-left-2 duration-200">
+                          {visaSubItems.map((item) => (
+                            <Link key={item.path} href={item.path}>
+                              <span
+                                data-testid={`link-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
+                                className="block px-4 py-2 text-sm hover-elevate active-elevate-2 transition-colors cursor-pointer"
+                              >
+                                {item.name}
+                              </span>
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </nav>
+
+            {/* Login Button - Desktop Only */}
             <Button
               data-testid="button-login"
               variant="default"
@@ -56,95 +145,6 @@ export default function Header() {
               Login
             </Button>
           </div>
-
-          {/* Desktop Navigation - Center */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link key={link.path} href={link.path}>
-                <span
-                  data-testid={`link-${link.name.toLowerCase()}`}
-                  className={`text-sm font-medium transition-colors hover:text-primary relative cursor-pointer ${
-                    location === link.path ? "text-primary" : "text-foreground"
-                  }`}
-                >
-                  {link.name}
-                  {location === link.path && (
-                    <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"></span>
-                  )}
-                </span>
-              </Link>
-            ))}
-
-            {/* Services Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setOpenDropdown("services")}
-              onMouseLeave={() => setOpenDropdown(null)}
-            >
-              <button
-                data-testid="button-services-dropdown"
-                className="flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary"
-              >
-                Services
-                <ChevronDown className="w-4 h-4" />
-              </button>
-
-              {/* Dropdown Menu */}
-              {(openDropdown === "services" || openDropdown === "visa") && (
-                <div className="absolute top-full left-0 mt-2 w-64 bg-card border border-card-border rounded-md shadow-lg py-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                  {serviceItems.map((item) => (
-                    <Link key={item.path} href={item.path}>
-                      <span
-                        data-testid={`link-service-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
-                        className="block px-4 py-2 text-sm hover-elevate active-elevate-2 transition-colors cursor-pointer"
-                      >
-                        {item.name}
-                      </span>
-                    </Link>
-                  ))}
-
-                  {/* Visa Sub-dropdown */}
-                  <div
-                    className="relative"
-                    onMouseEnter={() => setOpenDropdown("visa")}
-                    onMouseLeave={() => setOpenDropdown("services")}
-                  >
-                    <button
-                      data-testid="button-visa-submenu"
-                      className="w-full flex items-center justify-between px-4 py-2 text-sm hover-elevate active-elevate-2 transition-colors"
-                    >
-                      Visa
-                      <ChevronDown className="w-4 h-4 -rotate-90" />
-                    </button>
-
-                    {openDropdown === "visa" && (
-                      <div className="absolute left-full top-0 ml-1 w-48 bg-card border border-card-border rounded-md shadow-lg py-2 animate-in fade-in slide-in-from-left-2 duration-200">
-                        {visaSubItems.map((item) => (
-                          <Link key={item.path} href={item.path}>
-                            <span
-                              data-testid={`link-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
-                              className="block px-4 py-2 text-sm hover-elevate active-elevate-2 transition-colors cursor-pointer"
-                            >
-                              {item.name}
-                            </span>
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-          </nav>
-
-          {/* Logo - Right */}
-          <Link href="/">
-            <div data-testid="link-logo" className="flex items-center gap-2 cursor-pointer">
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-md font-bold text-lg">
-                GlobalVisa
-              </div>
-            </div>
-          </Link>
 
           {/* Mobile Menu Button */}
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -162,7 +162,7 @@ export default function Header() {
                 {/* Mobile Menu Header */}
                 <div className="flex items-center justify-between p-4 border-b">
                   <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-md font-bold">
-                    GlobalVisa
+                    EGS Group
                   </div>
                   <Button
                     data-testid="button-close-mobile-menu"
@@ -225,18 +225,19 @@ export default function Header() {
                         </Link>
                       ))}
                     </div>
+
+                    {/* Mobile Login Button */}
+                    <div className="pt-4">
+                      <Button
+                        data-testid="button-mobile-login"
+                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Login
+                      </Button>
+                    </div>
                   </div>
                 </nav>
-
-                {/* Mobile Login Button */}
-                <div className="p-4 border-t">
-                  <Button
-                    data-testid="button-mobile-login"
-                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                  >
-                    Login
-                  </Button>
-                </div>
               </div>
             </SheetContent>
           </Sheet>

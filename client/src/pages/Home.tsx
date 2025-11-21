@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroCarousel from "@/components/HeroCarousel";
+import WhyChooseUs from "@/components/WhyChooseUs";
 import CountriesSection from "@/components/CountriesSection";
 import ServicesSection from "@/components/ServicesSection";
 
@@ -10,6 +11,7 @@ export default function Home() {
       <Header />
       <main className="flex-1 pt-16 md:pt-20">
         <HeroCarousel />
+        <WhyChooseUs />
         <CountriesSection />
         <ServicesSection />
       </main>
