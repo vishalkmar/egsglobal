@@ -1,74 +1,119 @@
+import { Globe2, FileCheck2, Users } from "lucide-react";
+import AboutHeroEGS from "@/components/Aboutcomp1";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Card } from "@/components/ui/card";
-import { CheckCircle2 } from "lucide-react";
 
-export default function About() {
+const ABOUT_IMAGE_URL =
+  "https://images.pexels.com/photos/3184416/pexels-photo-3184416.jpeg?auto=compress&cs=tinysrgb&w=1200";
+// Preferably replace ABOVE with your own local asset import, e.g.
+// import aboutImg from "@assets/egs_team_about.jpg";
+
+export default function AboutUsBanner() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-1 pt-16 md:pt-20">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
-          <div className="max-w-7xl mx-auto px-4 text-center">
-            <h1 data-testid="text-about-title" className="text-4xl md:text-5xl font-bold mb-4">
-              About EGS Group
-            </h1>
-            <p data-testid="text-about-subtitle" className="text-xl text-white/90 max-w-3xl mx-auto">
-              Your trusted partner in visa and immigration services since 2010
-            </p>
-          </div>
-        </section>
+    <>
+        <Header/>
+       
+     <div className="mt-[100px]">
+        <AboutHeroEGS/>
+     </div>
+   <section className="relative overflow-hidden bg-slate-50 py-16 md:py-24">
+  <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 relative z-10">
+    {/* yaha class change ki: flex-col-reverse lg:flex-row -> flex-col lg:flex-row-reverse */}
+    <div className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16">
+      {/* Left (now on right side in desktop): Content */}
+      <div className="w-full lg:w-1/2">
+        <h1 className="mt-5 text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
+          Your Partner in
+          <span className="block bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Global Travel & Documentation
+          </span>
+        </h1>
 
-        {/* Content */}
-        <section className="py-16 md:py-24">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-              <div>
-                <h2 className="text-3xl font-bold mb-6">Who We Are</h2>
-                <p className="text-muted-foreground mb-4 leading-relaxed">
-                  EGS Group is a leading visa and immigration consultancy with over a decade of experience in helping travelers achieve their international dreams. We specialize in providing comprehensive visa services for multiple countries including India, Nepal, and Bangladesh.
-                </p>
-                <p className="text-muted-foreground mb-4 leading-relaxed">
-                  Our team of experienced professionals is dedicated to making your visa application process as smooth and stress-free as possible. We understand the complexities of international travel documentation and are here to guide you every step of the way.
-                </p>
-              </div>
-              <div>
-                <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
-                <p className="text-muted-foreground mb-4 leading-relaxed">
-                  To provide exceptional visa and immigration services that exceed our clients' expectations. We strive to make international travel accessible to everyone by offering reliable, efficient, and personalized assistance.
-                </p>
-                <Card className="p-6 mt-6 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 border-none">
-                  <div className="space-y-3">
-                    {["Expert Consultation", "Fast Processing", "100% Transparency", "24/7 Support"].map((item) => (
-                      <div key={item} className="flex items-center gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                        <span className="font-medium">{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </Card>
-              </div>
-            </div>
+        <p className="mt-5 text-sm md:text-base text-slate-600 leading-relaxed">
+          EGS Group is a specialized visa, attestation and travel support company
+          helping individuals, families and corporates navigate complex international
+          documentation with ease. From embassy legalization to airport assistance,
+          our team ensures every step of your journey is simple, transparent and secure.
+        </p>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {[
-                { label: "Happy Clients", value: "10,000+" },
-                { label: "Success Rate", value: "98%" },
-                { label: "Countries", value: "50+" },
-                { label: "Years Experience", value: "13+" },
-              ].map((stat, index) => (
-                <Card key={index} className="p-6 text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </Card>
-              ))}
+        <p className="mt-3 text-sm md:text-base text-slate-600 leading-relaxed">
+          With a strong presence across South Asia and a network of trusted partners
+          worldwide, we bring together professional expertise, reliable processes and
+          personalized support under one roof.
+        </p>
+      </div>
+
+      {/* Right (now on left side in desktop): Image block */}
+      <div className="w-full lg:w-1/2">
+        <div className="relative mx-auto max-w-md lg:max-w-none">
+          {/* Soft gradient circle behind */}
+          <div className="pointer-events-none absolute -inset-6 rounded-[2.75rem] bg-gradient-to-tr from-indigo-100 via-white to-purple-100 blur-xl" />
+
+          <div className="relative overflow-hidden rounded-[2.25rem] bg-slate-900 shadow-[0_24px_80px_rgba(15,23,42,0.45)]">
+            <img
+              src={ABOUT_IMAGE_URL}
+              alt="EGS Group team"
+              className="h-[280px] w-full object-cover md:h-[340px]"
+            />
+
+            {/* Overlay bottom info strip */}
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent px-6 pb-5 pt-10">
+              <p className="text-xs uppercase tracking-[0.22em] text-indigo-200">
+                EGS Group
+              </p>
+              <p className="mt-1 text-sm md:text-base font-semibold text-white">
+                Trusted documentation & travel partner for thousands of
+                travellers and professionals across the globe.
+              </p>
             </div>
           </div>
-        </section>
-      </main>
-      <Footer />
+
+          {/* Small floating badge card */}
+          <div className="absolute -bottom-6 right-4 w-52 rounded-2xl bg-white shadow-xl px-4 py-3 flex items-center gap-3">
+            <div className="h-9 w-9 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-semibold">
+              EGS
+            </div>
+            <div>
+              <p className="text-xs font-semibold text-slate-900">
+                Certified & Compliant
+              </p>
+              <p className="text-[11px] text-slate-600">
+                Processes aligned with embassy and consular norms.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
+  {/* Decorative curved line at bottom */}
+  <div className="pointer-events-none absolute bottom-0 left-0 w-full">
+    <svg
+      viewBox="0 0 1440 120"
+      preserveAspectRatio="none"
+      className="w-full h-16 md:h-20"
+    >
+      <path
+        fill="url(#about-curve)"
+        d="M0,80 C240,120 480,40 720,60 C960,80 1200,120 1440,80 L1440,120 L0,120 Z"
+      />
+      <defs>
+        <linearGradient id="about-curve" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%" stopColor="#EEF2FF" />
+          <stop offset="50%" stopColor="#E0ECFF" />
+          <stop offset="100%" stopColor="#EEF2FF" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+</section>
+
+
+
+
+
+    <Footer/>
+    </>
   );
 }

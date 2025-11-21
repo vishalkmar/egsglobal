@@ -53,20 +53,20 @@ export default function ServicesSection() {
     <section className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Services We Provide
+           <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 via-sky-500 to-purple-600 bg-clip-text text-transparent">
+          Services We
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Comprehensive visa and travel services tailored to your needs
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <Card
               key={service.title}
               data-testid={`card-service-${service.title.toLowerCase().replace(/\s+/g, "-")}`}
-              className="group overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary/30"
+              className="group bg-[#4ab5bd] overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary/30"
             >
               {/* Service Image */}
               <div className="relative h-56 overflow-hidden">
@@ -82,13 +82,13 @@ export default function ServicesSection() {
               <div className="p-6">
                 <h3
                   data-testid={`text-service-title-${service.title.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="text-xl font-bold mb-3 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+                  className="text-xl font-bold mb-3 text-white"
                 >
                   {service.title}
                 </h3>
                 <p
                   data-testid={`text-service-description-${service.title.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="text-muted-foreground text-sm mb-5 leading-relaxed min-h-[3rem]"
+                  className="text-white text-sm mb-5 leading-relaxed min-h-[3rem]"
                 >
                   {service.description}
                 </p>
@@ -96,7 +96,7 @@ export default function ServicesSection() {
                   <Button
                     data-testid={`button-service-learn-more-${service.title.toLowerCase().replace(/\s+/g, "-")}`}
                     variant="ghost"
-                    className="group/button p-0 h-auto hover:bg-transparent"
+                    className="group/button p-0 h-auto bg-white"
                   >
                     <span className="text-primary font-semibold">Learn More</span>
                     <ArrowRight className="w-4 h-4 ml-1 group-hover/button:translate-x-1 transition-transform" />
@@ -110,3 +110,5 @@ export default function ServicesSection() {
     </section>
   );
 }
+
+
