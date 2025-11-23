@@ -34,10 +34,10 @@ export default function Header() {
   const serviceItems = [
      { name: "MEA & Embassy Appostille", path: "/MEA-Embassy" },
     { name: "PCC Legalisation & Appostille", path: "/PCC-Legalisation" },
-    { name: " Embassy Attestation", path: "/Embassy-Attestation" },
+    { name: " Embassy Attestation", path: "/Embassy-Attention" },
      { name: "Translation Languages", path: "/Translation-Languages" },
       { name: "HRD Stamping", path: "/HRD-Stamping" },
-       { name: "Assistance in Sumission & collection", path: "/HRD-Stamping" },
+       { name: "Assistance in Sumission & collection", path: "/Assistance-in-Sumission" },
     { name: "Insurance & Dummy Ticket", path: "/insurance-dummy-ticket" },
     { name: "Meet & Greet", path: "/meet-greet" },
     { name: "Accommodation & Assistant", path: "/accommodation-assistant" },

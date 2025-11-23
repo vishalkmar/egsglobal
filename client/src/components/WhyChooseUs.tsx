@@ -65,9 +65,10 @@ function WhyChooseUs() {
                   }}
                 >
                   <img
-                    src={ABOUT_IMAGE_URL}
+                    src="/whychooseus.jpg"
                     alt="Team"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover "
+                    
                   />
                 </div>
 
