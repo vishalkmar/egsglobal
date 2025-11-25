@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import DummyTicketProcess from "@/components/dummyticket/Process";
 import DummyTicketBooking from "@/components/dummyticket/DummyTicketBooking";
+import DummyTicketInsuranceService from "@/components/dummyticket/DummyTicketInsurenceService";
 
 const HERO_IMAGE_URL = "/dummyticket.jpg";
 const HEADING_TEXT = "Travel Insurance & Dummy Ticket Services";
@@ -75,6 +76,7 @@ const DummyTicketBanner: React.FC = () => {
         </div>
       </section>
       <DummyTicketBooking/>
+      <DummyTicketInsuranceService/>
       <DummyTicketProcess/>
       <Footer />
     </>

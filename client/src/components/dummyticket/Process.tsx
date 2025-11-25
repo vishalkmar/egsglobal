@@ -1,5 +1,3 @@
-
-
 import { Plane, FileText, CreditCard, ThumbsUp } from "lucide-react";
 
 const steps = [
@@ -34,51 +32,68 @@ const steps = [
 
 const DummyTicketProcess: React.FC = () => {
   return (
-    <section className="bg-white py-12 sm:py-16 lg:py-20">
+    <section className="bg-slate-50 py-12 sm:py-16 lg:py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
-        <div className="mb-10 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900">
-            Booking Process
-          </h2>
-          <div className="h-[2px] w-20 bg-sky-500 mt-2" />
+        <div className="mb-10 sm:mb-12 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900">
+              Booking Process
+            </h2>
+            <div className="h-[2px] w-20 bg-sky-500 mt-2" />
+          </div>
+          <p className="text-xs sm:text-sm text-slate-500 max-w-md">
+            A simple four-step process to get your dummy ticket issued quickly
+            and accurately for your visa application.
+          </p>
         </div>
 
         {/* Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
-          {steps.map((step) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-7">
+          {steps.map((step, index) => {
             const Icon = step.icon;
             return (
               <div
                 key={step.id}
-                className="flex flex-col items-center text-center space-y-4"
+                className="relative h-full rounded-2xl border border-slate-200 bg-white/80 backdrop-blur-sm px-4 py-5 sm:px-5 sm:py-6 shadow-[0_10px_30px_rgba(15,23,42,0.06)] hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(15,23,42,0.12)] transition-all duration-200"
               >
-                {/* Circle card + number badge */}
-                <div className="relative">
-                  <div className="w-40 h-40 sm:w-44 sm:h-44 rounded-full bg-white shadow-[0_18px_45px_rgba(15,23,42,0.08)] flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center">
-                      <Icon className="w-9 h-9 text-slate-800" />
-                    </div>
-                  </div>
-
-                  {/* Number badge */}
-                  <div className="absolute -top-1 -right-1">
-                    <div className="w-9 h-9 rounded-full bg-sky-600 flex items-center justify-center shadow-md">
-                      <span className="text-xs font-semibold text-white">
-                        {step.id}
-                      </span>
-                    </div>
-                  </div>
+                {/* Step label */}
+                <div className="flex items-center justify-between mb-4">
+                  <span className="inline-flex items-center rounded-full bg-sky-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-sky-700">
+                    Step {step.id}
+                  </span>
+                  <span className="text-[11px] text-slate-400">
+                    {index === 0
+                      ? "Start"
+                      : index === steps.length - 1
+                      ? "Done"
+                      : "Next"}
+                  </span>
                 </div>
 
-                {/* Text */}
-                <div className="space-y-2">
-                  <h3 className="text-base sm:text-lg font-semibold text-slate-900">
+                {/* Icon + title */}
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-sky-50 border border-sky-100">
+                    <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-sky-700" />
+                  </div>
+                  <h3 className="text-sm sm:text-base font-semibold text-slate-900">
                     {step.title}
                   </h3>
-                  <p className="text-sm sm:text-[0.9rem] text-slate-500 leading-relaxed max-w-xs mx-auto">
-                    {step.description}
-                  </p>
+                </div>
+
+                {/* Description */}
+                <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
+                  {step.description}
+                </p>
+
+                {/* Bottom progress bar accent */}
+                <div className="mt-4 h-1 w-full rounded-full bg-slate-100 overflow-hidden">
+                  <div
+                    className="h-full bg-sky-500"
+                    style={{
+                      width: `${((index + 1) / steps.length) * 100}%`,
+                    }}
+                  />
                 </div>
               </div>
             );
