@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
@@ -10,33 +13,62 @@ const CONTACT_BANNER_GRADIENT =
   "bg-gradient-to-br from-blue-700 via-indigo-700 to-purple-700";
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    serviceType: "",
+    message: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    console.log("Contact form data:", formData);
+     alert("data submitted sucessfully")
+    // yahan baad mein API call add kar sakte ho:
+    // await fetch("/api/contact", { method: "POST", body: JSON.stringify(formData) })
+
+    // optional: form reset
+    // setFormData({ name: "", phone: "", email: "", serviceType: "", message: "" });
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
       <Header />
       <main className="flex-1 pt-16 md:pt-20">
         {/* HERO / BANNER */}
-      <section
-  className="
-    relative overflow-hidden text-white
-    min-h-[480px] md:min-h-[560px]
-    bg-[#020617]
-    bg-[radial-gradient(circle_at_5%_10%,rgba(37,99,235,0.35),transparent_55%),radial-gradient(circle_at_80%_90%,rgba(147,51,234,0.35),transparent_60%)]
-  "
->
-
- <h1
-  className="
-    text-center
-    text-4xl sm:text-5xl md:text-6xl
-    font-bold
-    tracking-[0.18em]
-    text-white
-    uppercase
-    pt-[50px]
-  "
->
-  WE’RE HERE FOR YOU
-</h1>
+        <section
+          className="
+            relative overflow-hidden text-white
+            min-h-[480px] md:min-h-[560px]
+            bg-[#020617]
+            bg-[radial-gradient(circle_at_5%_10%,rgba(37,99,235,0.35),transparent_55%),radial-gradient(circle_at_80%_90%,rgba(147,51,234,0.35),transparent_60%)]
+          "
+        >
+          <h1
+            className="
+              text-center
+              text-4xl sm:text-5xl md:text-6xl
+              font-bold
+              tracking-[0.18em]
+              text-white
+              uppercase
+              pt-[50px]
+            "
+          >
+            WE’RE HERE FOR YOU
+          </h1>
 
           {/* soft gradient blobs */}
           <div className="pointer-events-none">
@@ -169,7 +201,10 @@ export default function Contact() {
                       </p>
                     </div>
 
-                    <form className="space-y-5 flex-1 flex flex-col">
+                    <form
+                      className="space-y-5 flex-1 flex flex-col"
+                      onSubmit={handleSubmit}
+                    >
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                           <label className="block text-sm font-medium mb-1.5">
@@ -177,8 +212,11 @@ export default function Contact() {
                           </label>
                           <Input
                             data-testid="input-name"
+                            name="name"
                             placeholder="Enter your full name"
                             className="bg-slate-50 focus-visible:ring-sky-500"
+                            value={formData.name}
+                            onChange={handleChange}
                           />
                         </div>
                         <div>
@@ -188,8 +226,11 @@ export default function Contact() {
                           <Input
                             data-testid="input-phone"
                             type="tel"
+                            name="phone"
                             placeholder="+91 98765 43210"
                             className="bg-slate-50 focus-visible:ring-sky-500"
+                            value={formData.phone}
+                            onChange={handleChange}
                           />
                         </div>
                       </div>
@@ -201,8 +242,11 @@ export default function Contact() {
                         <Input
                           data-testid="input-email"
                           type="email"
+                          name="email"
                           placeholder="you@example.com"
                           className="bg-slate-50 focus-visible:ring-sky-500"
+                          value={formData.email}
+                          onChange={handleChange}
                         />
                       </div>
 
@@ -211,8 +255,10 @@ export default function Contact() {
                           Service Type
                         </label>
                         <select
+                          name="serviceType"
                           className="w-full rounded-md border border-input bg-slate-50 px-3 py-2 text-sm text-slate-700 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-1"
-                          defaultValue=""
+                          value={formData.serviceType}
+                          onChange={handleChange}
                         >
                           <option value="" disabled>
                             Select a service
@@ -231,9 +277,12 @@ export default function Contact() {
                         </label>
                         <Textarea
                           data-testid="input-message"
+                          name="message"
                           placeholder="Share your query, destination and tentative travel dates..."
                           rows={5}
                           className="bg-slate-50 focus-visible:ring-sky-500 h-full min-h-[120px]"
+                          value={formData.message}
+                          onChange={handleChange}
                         />
                       </div>
 
