@@ -5,26 +5,46 @@ import React, { useState, FormEvent, ChangeEvent } from "react";
 type ActiveTab = "dummyTicket" | "insurance";
 type TripType = "oneWay" | "roundTrip";
 
+type FlightForm = {
+  name: string;
+  email: string;
+  startLocation: string;
+  departureDate: string;
+  returnDate: string;
+};
+
+type InsuranceForm = {
+  name: string;
+  email: string;
+  mobile: string;
+  destination: string;
+  travelDate: string;
+  dob: string;
+  passportFront: File | null;
+  passportBack: File | null;
+};
+
 const DummyTicketBooking: React.FC = () => {
   const [activeTab, setActiveTab] = useState<ActiveTab>("dummyTicket");
   const [tripType, setTripType] = useState<TripType>("oneWay");
 
-  const [flightForm, setFlightForm] = useState({
+  const [flightForm, setFlightForm] = useState<FlightForm>({
     name: "",
     email: "",
     startLocation: "",
-  
     departureDate: "",
     returnDate: "",
   });
 
-  const [insuranceForm, setInsuranceForm] = useState({
+  const [insuranceForm, setInsuranceForm] = useState<InsuranceForm>({
     name: "",
     email: "",
     mobile: "",
     destination: "",
     travelDate: "",
     dob: "",
+    passportFront: null,
+    passportBack: null,
   });
 
   const [error, setError] = useState<string | null>(null);
@@ -35,10 +55,18 @@ const DummyTicketBooking: React.FC = () => {
     setFlightForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Insurance form change
+  // Insurance form change (text + file)
   const handleInsuranceChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setInsuranceForm((prev) => ({ ...prev, [name]: value }));
+    const { name, type, value, files } = e.target;
+
+    if (type === "file") {
+      setInsuranceForm((prev) => ({
+        ...prev,
+        [name]: files && files.length > 0 ? files[0] : null,
+      }));
+    } else {
+      setInsuranceForm((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -52,13 +80,12 @@ const DummyTicketBooking: React.FC = () => {
         name,
         email,
         startLocation,
-        
         departureDate,
         returnDate,
       } = flightForm;
 
       // basic validation
-      if (!name || !email || !startLocation || !endLocation || !departureDate) {
+      if (!name || !email || !startLocation || !departureDate) {
         setError("Please fill all required fields in the dummy ticket form.");
         return;
       }
@@ -74,11 +101,28 @@ const DummyTicketBooking: React.FC = () => {
         amount: 1000,
       };
     } else if (activeTab === "insurance") {
-      const { name, email, mobile, destination, travelDate, dob } =
-        insuranceForm;
+      const {
+        name,
+        email,
+        mobile,
+        destination,
+        travelDate,
+        dob,
+        passportFront,
+        passportBack,
+      } = insuranceForm;
 
-      // light validation for insurance as well
-      if (!name || !email || !mobile || !destination || !travelDate || !dob) {
+      // validation for insurance
+      if (
+        !name ||
+        !email ||
+        !mobile ||
+        !destination ||
+        !travelDate ||
+        !dob ||
+        !passportFront ||
+        !passportBack
+      ) {
         setError("Please fill all required fields in the insurance form.");
         return;
       }
@@ -91,7 +135,9 @@ const DummyTicketBooking: React.FC = () => {
 
     console.log("Dummy ticket / Insurance form submit payload:", payload);
 
-    alert("Your request has been submitted successfully. Our team will coordinate with you shortly.");
+    alert(
+      "Your request has been submitted successfully. Our team will coordinate with you shortly."
+    );
   };
 
   return (
@@ -235,7 +281,6 @@ const DummyTicketBooking: React.FC = () => {
                         onChange={handleFlightChange}
                         className="w-full rounded-md border border-slate-200 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
                       />
-                     
 
                       <div className="space-y-1">
                         <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
@@ -357,6 +402,35 @@ const DummyTicketBooking: React.FC = () => {
                           value={insuranceForm.dob}
                           onChange={handleInsuranceChange}
                           className="w-full rounded-md border border-slate-200 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Passport upload */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                      <div className="space-y-1">
+                        <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
+                          PASSPORT FRONT
+                        </label>
+                        <input
+                          type="file"
+                          name="passportFront"
+                          accept="image/*,.pdf"
+                          onChange={handleInsuranceChange}
+                          className="w-full rounded-md border border-slate-200 px-3 py-2 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs sm:file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100"
+                        />
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
+                          PASSPORT BACK
+                        </label>
+                        <input
+                          type="file"
+                          name="passportBack"
+                          accept="image/*,.pdf"
+                          onChange={handleInsuranceChange}
+                          className="w-full rounded-md border border-slate-200 px-3 py-2 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs sm:file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100"
                         />
                       </div>
                     </div>
