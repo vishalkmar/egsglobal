@@ -17,15 +17,19 @@ interface FlowType {
 
 const flows: FlowType[] = [
   {
-    title: "For Educational Documents",
-    highlight: "HRD → MEA → Embassy",
+    title: "PCC Legalization – Non-Hague Countries",
+    highlight: "PCC → State → MEA → Embassy",
     description:
-      "Educational certificates are first authenticated by the Human Resource / Education Department of the issuing state or union territory, then attested by MEA and finally by the concerned country’s embassy.",
+      "For Non-Hague Convention countries such as UAE, Qatar, Kuwait, Oman and Saudi Arabia, the Police Clearance Certificate (PCC) is legalized through state authentication, MEA attestation and final embassy attestation of the destination country.",
     color: "border-sky-500",
     steps: [
       {
-        label: "Human Resource Department (HRD)",
-        sub: "State / UT Education or HRD Department",
+        label: "PCC Issuance",
+        sub: "Local Police Station / PSK / Passport Office",
+      },
+      {
+        label: "State Home Department Authentication",
+        sub: "Home / General Administration Department (State Govt.)",
       },
       {
         label: "MEA Attestation",
@@ -33,90 +37,60 @@ const flows: FlowType[] = [
       },
       {
         label: "Embassy Attestation",
-        sub: "Concerned foreign embassy / consulate",
+        sub: "Embassy / Consulate of destination Non-Hague country",
       },
     ],
   },
   {
-    title: "For Non-Educational (Personal) Documents",
-    highlight: "Home Dept → MEA → Embassy",
+    title: "PCC Apostille – Hague Convention Countries",
+    highlight: "PCC → State → MEA Apostille",
     description:
-      "Personal documents such as birth, marriage, or death certificates are authenticated by the Home / General Administration Department, then attested by MEA and finally by the embassy of the destination country.",
-    color: "border-amber-500",
+      "For Hague Convention member countries in Europe, USA, Australia and others, the PCC is first authenticated by the State Home Department and then apostilled by the MEA. No further embassy attestation is required.",
+    color: "border-emerald-500",
     steps: [
       {
-        label: "Home Department / GAD",
-        sub: "State Home / General Administration Dept.",
+        label: "PCC Issuance",
+        sub: "Local Police Station / PSK / Passport Office",
       },
       {
-        label: "MEA Attestation",
-        sub: "Ministry of External Affairs, New Delhi",
+        label: "State Home Department Authentication",
+        sub: "Home / General Administration Department (State Govt.)",
       },
       {
-        label: "Embassy Attestation",
-        sub: "Concerned foreign embassy / consulate",
-      },
-    ],
-  },
-  {
-    title: "For Commercial Documents",
-    highlight: "Chamber → MEA → Embassy",
-    description:
-      "Commercial papers are pre-authenticated by the Chamber of Commerce, followed by MEA attestation and then embassy attestation, making them valid for international trade and corporate use.",
-    color: "border-rose-500",
-    steps: [
-      {
-        label: "Chamber of Commerce",
-        sub: "Authorised Chamber pre-authentication",
-      },
-      {
-        label: "MEA Attestation",
-        sub: "Ministry of External Affairs, New Delhi",
-      },
-      {
-        label: "Embassy Attestation",
-        sub: "Concerned foreign embassy / consulate",
+        label: "MEA Apostille",
+        sub: "Computer-generated Apostille sticker by MEA, New Delhi",
       },
     ],
   },
 ];
 
-const MeaAttestationProcedureFlow: React.FC = () => {
+const PccLegalizationApostilleFlow: React.FC = () => {
   return (
     <section className="bg-white py-12 md:py-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* MAIN HEADING + INTRO */}
         <div className="text-center mb-8 md:mb-10">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800">
-            Procedure Of MEA Document Attestation
+            Procedure for PCC Legalization & Apostille
           </h2>
           <p className="mt-3 text-sm sm:text-base text-gray-600 leading-relaxed max-w-3xl mx-auto">
-            MEA attestation is completed after the designated state authority has
-            authenticated the document. Once the state / chamber process is
-            complete, the Ministry of External Affairs (MEA), New Delhi, attests
-            the document, and in many cases it is then further attested by the
-            concerned country’s embassy.
+            The process for Police Clearance Certificate (PCC) attestation
+            depends on whether the destination country is a Hague Convention
+            member or a Non-Hague country. For Non-Hague countries, full
+            legalization including embassy attestation is required, while Hague
+            countries accept an MEA Apostille after state authentication.
           </p>
         </div>
 
         {/* FLOW CARDS */}
         <div className="space-y-8 md:space-y-10">
           {flows.map((flow, flowIndex) => {
-            // per-flow step card colours
             const stepBgClass =
-              flowIndex === 0
-                ? "bg-amber-500"
-                : flowIndex === 1
-                ? "bg-sky-600"
-                : "bg-emerald-600";
+              flowIndex === 0 ? "bg-sky-600" : "bg-emerald-600";
 
             const stepTitleTextClass = "text-white";
             const stepSubTextClass =
-              flowIndex === 0
-                ? "text-amber-50/90"
-                : flowIndex === 1
-                ? "text-sky-50/90"
-                : "text-emerald-50/90";
+              flowIndex === 0 ? "text-sky-50/90" : "text-emerald-50/90";
 
             const stepLabelTextClass = "text-white/80";
 
@@ -181,11 +155,9 @@ const MeaAttestationProcedureFlow: React.FC = () => {
                           {/* ARROW BETWEEN STEPS (desktop + mobile) */}
                           {index < flow.steps.length - 1 && (
                             <div className="flex md:flex-col items-center justify-center md:justify-start">
-                              {/* mobile / tablet arrow */}
                               <span className="md:hidden text-slate-400 text-lg">
                                 →
                               </span>
-                              {/* desktop curved arrow-ish line */}
                               <span className="hidden md:inline-block h-8 w-8 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-500 text-base shadow-sm">
                                 →
                               </span>
@@ -197,12 +169,13 @@ const MeaAttestationProcedureFlow: React.FC = () => {
                   </div>
                 </div>
 
-                {/* FOOTNOTE FOR BRAND (neutral) */}
+                {/* FOOTNOTE */}
                 <p className="mt-3 text-[11px] sm:text-xs text-gray-500">
-                  EGS assists you at every stage of this process – from state /
-                  chamber authentication to MEA attestation and, where required,
-                  embassy attestation – ensuring your documents are accepted
-                  smoothly abroad.
+                  EGS supports you at each stage of the PCC process – from
+                  issuance and state authentication to MEA attestation /
+                  Apostille and, where required, embassy attestation – so that
+                  your Police Clearance Certificate is accepted confidently by
+                  foreign authorities.
                 </p>
               </div>
             );
@@ -213,4 +186,4 @@ const MeaAttestationProcedureFlow: React.FC = () => {
   );
 };
 
-export default MeaAttestationProcedureFlow;
+export default PccLegalizationApostilleFlow;

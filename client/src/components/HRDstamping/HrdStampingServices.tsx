@@ -1,65 +1,65 @@
 import React from "react";
 
-const meetGreetSteps = [
+const hrdStampingSteps = [
   {
-    title: "Airport Pick-Up & Drop-Off",
+    title: "State HRD Verification",
     description:
-      "Comfortable and timely transfers to and from airports.",
-    imageSrc: "/meetgreet/pickup.jpg",
+      "Official authentication of educational certificates through respective State HRD departments.",
+    imageSrc: "/hrd/varification.jpeg",
   },
   {
-    title: "Hotel-to-VFS Transfers",
+    title: "Degree & Diploma Stamping",
     description:
-      "Hassle-free transport between your accommodation and visa application centers.",
-    imageSrc: "/meetgreet/pickup2.jpg",
+      "Verification for university degrees, diplomas, transcripts, and mark sheets.",
+     imageSrc: "/hrd/degree.jpg",
   },
   {
-    title: "Personalized Assistance",
+    title: "Mandatory Attestation for Abroad",
     description:
-      "Dedicated staff to guide and support you throughout your journey.",
-    imageSrc: "/meetgreet/personalize.jpg",
+      "Required for higher education, skilled employment, professional licensing, and migration.",
+    imageSrc: "/hrd/mendatory.jpg",
   },
   {
-    title: "Real-Time Coordination",
+    title: "University Verification Assistance",
     description:
-      "Ensuring seamless transfers and on-time arrivals for appointments.",
-    imageSrc: "/meetgreet/realtime.jpg",
+      "Coordination with universities and boards for prior verification if required by HRD.",
+     imageSrc: "/hrd/university.jpg",
   },
   {
-    title: "Safety & Comfort",
+    title: "Complete Documentation Support",
     description:
-      "Professionally trained drivers and sanitized vehicles for a secure travel experience.",
-    imageSrc: "/meetgreet/safe.jpg",
+      "Guidance on paperwork, forms, fees, and supporting documents needed for HRD stamping.",
+  imageSrc: "/hrd/docsupport.jpg",
   },
   {
-    title: "End-to-End Convenience",
+    title: "Hassle-Free Processing",
     description:
-      "From arrival to departure, we manage every detail for a smooth travel experience.",
-    imageSrc: "/meetgreet/experience.jpg",
+      "End-to-end management from submission to collection, ensuring speed and accuracy.",
+     imageSrc: "/hrd/hassle.jpg",
   },
 ];
 
-const MeetGreetServices: React.FC = () => {
+const HRDStampingServices: React.FC = () => {
   return (
     <section className="bg-white py-12 sm:py-16 lg:py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <div className="mb-10 sm:mb-12">
           <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900">
-            Meet &amp; Greet Services
+            HRD Stamping Services
           </h2>
           <div className="h-[2px] w-20 bg-sky-500 mt-2" />
         </div>
 
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-8">
-          {meetGreetSteps.map((step, idx) => (
+          {hrdStampingSteps.map((step, idx) => (
             <div
               key={idx}
               className="flex flex-col items-center text-center space-y-4"
             >
               {/* Circle image card */}
-              <div style={{borderRadius:"50%",overflow:'hidden'}} className="w-40 h-40 sm:w-44 sm:h-44  bg-white shadow-[0_18px_45px_rgba(15,23,42,0.08)] flex items-center justify-center">
+                      <div style={{borderRadius:"50%",overflow:'hidden'}} className="w-40 h-40 sm:w-44 sm:h-44  bg-white shadow-[0_18px_45px_rgba(15,23,42,0.08)] flex items-center justify-center">
                 
                   <img
                     src={step.imageSrc}
@@ -86,4 +86,4 @@ const MeetGreetServices: React.FC = () => {
   );
 };
 
-export default MeetGreetServices;
+export default HRDStampingServices;

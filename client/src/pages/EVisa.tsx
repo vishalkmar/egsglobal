@@ -1,22 +1,22 @@
-import ServicePage from "./ServicePage";
 
+
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import CountriesSection from "@/components/CountriesSection";
+import VisaProcess from "@/components/E-visa/VisaProcess";
+import VisaBannerCarousel from '../components/E-visa/EVisaBanner'
+import EVisaServices from "@/components/E-visa/EVisaServices";
 export default function EVisa() {
   return (
-    <ServicePage
-      title="E-Visa Services"
-      description="Fast and convenient electronic visa processing services for countries offering online visa applications and approvals."
-      features={[
-        "Online e-visa application assistance",
-        "Fast processing for urgent travel needs",
-        "Tourist and business e-visa services",
-        "Document upload and verification support",
-        "Payment processing assistance",
-        "E-visa status tracking",
-        "Multiple country e-visa expertise",
-        "Pre-departure briefing and guidance",
-        "Digital document management",
-        "Same-day e-visa processing (where available)",
-      ]}
-    />
+     <>
+        <Header/>
+       
+        <VisaBannerCarousel/>
+       
+        <CountriesSection/>
+        <VisaProcess/>
+          <EVisaServices/>
+       <Footer/>
+     </>
   );
 }

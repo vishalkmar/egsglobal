@@ -1,7 +1,17 @@
 
+import Header from "../components/Header"
+import Footer from "../components/Footer"
+import  HRDStampingServices from '../components/HRDstamping/HrdStampingServices'
+import HRDHeroBanner from '../components/HRDstamping/HrdStampingBanner'
+
 export default function HrdStamping(){
       
      return (<>
-    <h1>HrdStamping</h1>    
+
+          <Header/>
+          <HRDHeroBanner/>
+          <HRDStampingServices/>
+          <Footer/>
+
      </>)
 }

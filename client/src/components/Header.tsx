@@ -23,6 +23,21 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // Close dropdown if clicking outside the header
+      if (!target.closest("header")) {
+        setOpenDropdown(null);
+      }
+    };
+    if (openDropdown) {
+      document.addEventListener("click", handleClickOutside);
+      return () => document.removeEventListener("click", handleClickOutside);
+    }
+  }, [openDropdown]);
+
+
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
@@ -30,7 +45,7 @@ export default function Header() {
   ];
 
   const visaSubItems = [
-    { name: "Sticker Visa", path: "/visa/normal" },
+    { name: "Sticker Visa", path: "/visa/sticker-visa" },
     { name: "E-Visa", path: "/visa/e-visa" },
   ];
 
@@ -64,7 +79,7 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-transparent backdrop-blur-md shadow-md"
+          ? "bg-slate-950/50 backdrop-blur-md shadow-md"
           : HEADER_GRADIENT
       }`}
     >
@@ -202,7 +217,8 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent
               side="left"
-              className={`w-80 p-0 text-white ${HEADER_GRADIENT} [&_[data-radix-dialog-close]]:hidden`}
+              className={`w-80 p-0 text-white [&_[data-radix-dialog-close]]:hidden`}
+              style={{ backgroundColor: "#020617" }}
             >
               <div className="flex flex-col h-full">
                 {/* Mobile Header */}

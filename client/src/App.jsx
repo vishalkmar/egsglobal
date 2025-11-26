@@ -10,8 +10,9 @@ import Contact from "@/pages/Contact";
 import InsuranceDummyTicket from "@/pages/InsuranceDummyTicket";
 import MeetGreet from "@/pages/MeetGreet";
 import AccommodationAssistant from "@/pages/AccommodationAssistant";
-import NormalVisa from "@/pages/NormalVisa";
+
 import EVisa from "@/pages/EVisa";
+import StickerVisa from '../src/pages/StickerVisa'
 import NotFound from "@/pages/not-found";
 
 import PCCLegalization from "./pages/PCCLegalization";
@@ -20,7 +21,7 @@ import TranslationLanguages from "./pages/TranslationLanguages";
 import HrdStamping from "./pages/HRDStamping";
 import  AssistanceinSumission from './pages/AssostanceInSummission'
 
-function Router() {
+function Router() { 
   return (
     <Switch>
       <Route path="/" component={Home} />
@@ -36,7 +37,7 @@ function Router() {
       <Route path="/insurance-dummy-ticket" component={InsuranceDummyTicket} />
       <Route path="/meet-greet" component={MeetGreet} />
       <Route path="/accommodation-assistant" component={AccommodationAssistant} />
-      <Route path="/visa/normal" component={NormalVisa} />
+      <Route path="/visa/sticker-visa" component={StickerVisa} />
       <Route path="/visa/e-visa" component={EVisa} />
       <Route component={NotFound} />
     </Switch>
