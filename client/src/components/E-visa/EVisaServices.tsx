@@ -14,37 +14,37 @@ const eVisaServices = [
     title: "Destination Coverage",
     description:
       "E-Visa support for Oman, Dubai, Qatar, Singapore, Jordan, and Egypt.",
-    imageSrc: "/evisa/destination.jpg",
+    imageSrc: "/visa/destinationcovrage.jpeg",
   },
   {
     title: "Eligibility Guidance",
     description:
       "Clear advice on requirements for business, tourism, and family visits.",
-    imageSrc: "/evisa/eligibility.jpg",
+    imageSrc: "/visa/eligibility.jpg",
   },
   {
     title: "Accurate Application Filing",
     description:
       "Error-free form submission and document uploads handled by our team.",
-    imageSrc: "/evisa/application.jpg",
+    imageSrc: "/visa/appfiling.jpg",
   },
   {
     title: "Quick Processing",
     description:
       "Streamlined handling of e-Visa files to support timely approvals.",
-    imageSrc: "/evisa/quick-processing.jpg",
+    imageSrc: "/visa/process.jpg",
   },
   {
     title: "Secure & Confidential",
     description:
       "Data privacy, secure handling of documents, and compliance with international standards.",
-    imageSrc: "/evisa/secure.jpg",
+    imageSrc: "/visa/secure.jpg",
   },
   {
     title: "24/7 Assistance",
     description:
       "Dedicated support for queries before, during, and after the application process.",
-    imageSrc: "/evisa/support.jpg",
+    imageSrc: "/visa/assistance.jpg",
   },
 ];
 
@@ -67,7 +67,9 @@ const EVisaServices: React.FC = () => {
                 <img
                   src={service.imageSrc}
                   alt={service.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full "
+                  height={100}
+                  width={100}
                 />
               </div>
 
