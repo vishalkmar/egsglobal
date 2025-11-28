@@ -134,8 +134,13 @@ export default function Contact() {
 
               {/* RIGHT: Highlight / mini info card */}
               <div className="flex justify-center lg:justify-end">
-               
-              </div>
+  <img
+    src=""   // 👉 yahan apna image path daal dena
+    alt=""
+    className="w-[260px] sm:w-[300px] md:w-[360px] lg:w-[420px] rounded-2xl shadow-xl object-cover"
+  />
+</div>
+
             </div>
           </div>
         </section>
