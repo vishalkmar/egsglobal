@@ -10,13 +10,7 @@ interface AppointmentFormData {
   visaType: VisaType | "";
 }
 
-const countries = [
-  "North Macedonia",
-  "Romania",
-  "Serbia",
-  "Italy",
-  "Croatia",
-];
+const countries = ["North Macedonia", "Romania", "Serbia", "Italy", "Croatia"];
 
 const AppointmentSubmissionHero: React.FC = () => {
   const [formData, setFormData] = useState<AppointmentFormData>({
@@ -25,9 +19,8 @@ const AppointmentSubmissionHero: React.FC = () => {
     visaType: "",
   });
 
-  const [submittedData, setSubmittedData] = useState<AppointmentFormData | null>(
-    null
-  );
+  const [submittedData, setSubmittedData] =
+    useState<AppointmentFormData | null>(null);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -43,39 +36,59 @@ const AppointmentSubmissionHero: React.FC = () => {
     e.preventDefault();
     console.log("Appointment & Submission form data:", formData);
     setSubmittedData(formData);
-    alert("Your appointment & submission request has been received. Our team will coordinate with you shortly.");
+    alert(
+      "Your appointment & submission request has been received. Our team will coordinate with you shortly."
+    );
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-r from-sky-800 via-sky-700 to-cyan-500 text-white py-14 md:pt-40">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative w-full overflow-hidden bg-black py-14 md:pt-40 md:pb-20">
+      {/* Background image */}
+      <div
+        className="absolute inset-0 bg-center bg-cover"
+        style={{
+          // change this path to your actual appointment hero image
+          backgroundImage: "url('/submission.jpg')",
+        }}
+      />
+
+      {/* Overlay gradient (same vibe family) */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-slate-900/70 to-sky-900/35" />
+
+      {/* Content */}
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-14 items-stretch">
           {/* LEFT SIDE – TEXT BLOCK */}
-          <div className="flex flex-col justify-center space-y-6 md:space-y-8">
+          <div className="flex flex-col justify-center space-y-6 md:space-y-8 text-white">
             <div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.3rem] font-bold leading-tight md:leading-[1.15] space-y-1">
-                <span className="block">Assistant in</span>
-                <span className="block">Appointment & Submission</span>
+                <span className="block">Assistance in</span>
+                <span className="block">Appointment &amp; Submission</span>
               </h1>
             </div>
 
-            <p className="text-sm sm:text-base text-sky-50/90 max-w-xl leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-100/90 max-w-xl leading-relaxed">
               EGS Group helps you with visa appointment bookings and document
               submission for European missions. Share your preferred submission
               date, country and visa type, and our team will coordinate the next
               steps with you.
             </p>
 
-            <ul className="space-y-1 text-xs sm:text-sm text-sky-100/90">
+            <ul className="space-y-1 text-xs sm:text-sm text-slate-100/90">
               <li>• Appointment booking support for selected embassies</li>
-              <li>• Guided document submission for work, business and tourist visas</li>
-              <li>• Dedicated assistance for applicants from India, Nepal and Bangladesh</li>
+              <li>
+                • Guided document submission for work, business and tourist visas
+              </li>
+              <li>
+                • Dedicated assistance for applicants from India, Nepal and
+                Bangladesh
+              </li>
             </ul>
           </div>
 
           {/* RIGHT SIDE – FORM CARD */}
           <div className="flex items-stretch">
-            <div className="w-full bg-white text-slate-900 rounded-3xl shadow-2xl px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-9">
+            <div className="w-full bg-white/95 backdrop-blur-[4px] text-slate-900 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.45)] px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-9">
               {/* Logo / Title */}
               <div className="flex flex-col items-center mb-6">
                 <div className="h-11 w-11 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 flex items-center justify-center text-white font-bold text-lg shadow-md">
@@ -144,22 +157,29 @@ const AppointmentSubmissionHero: React.FC = () => {
                   <span className="text-xs font-semibold text-slate-600">
                     Service Amount
                   </span>
-                  <span className="text-sm font-bold text-sky-700">
-                    1000
-                  </span>
+                  <span className="text-sm font-bold text-sky-700">1000</span>
                 </div>
 
                 {/* Submit button */}
                 <button
                   type="submit"
-                  className="mt-2 w-full rounded-md bg-sky-600 hover:bg-sky-700 text-white text-sm sm:text-base font-semibold py-2.5 sm:py-3 transition-colors"
+                  className="mt-2 w-full rounded-md bg-sky-600 hover:bg-sky-700 text-white text-sm sm:text-base font-semibold py-2.5 sm:py-3 transition-colors shadow-md"
                 >
                   Submit Request
                 </button>
               </form>
 
-              {/* Optional submitted data preview */}
-              
+              {/* Optional submitted data preview (kept for debugging if needed) */}
+              {submittedData && (
+                <div className="mt-6 border-t border-slate-200 pt-4">
+                  <p className="text-xs font-semibold text-slate-600 mb-2">
+                    Submitted Data (preview)
+                  </p>
+                  <pre className="text-[11px] sm:text-xs bg-slate-50 border border-slate-200 rounded-md p-3 overflow-x-auto">
+                    {JSON.stringify(submittedData, null, 2)}
+                  </pre>
+                </div>
+              )}
             </div>
           </div>
         </div>

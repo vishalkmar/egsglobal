@@ -134,47 +134,7 @@ export default function Contact() {
 
               {/* RIGHT: Highlight / mini info card */}
               <div className="flex justify-center lg:justify-end">
-                <Card className="relative w-full max-w-md bg-slate-950/40 border-slate-700/70 text-slate-100 p-6 sm:p-7 backdrop-blur-md shadow-2xl">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="h-10 w-10 rounded-full bg-gradient-to-br from-sky-300 to-cyan-200 flex items-center justify-center">
-                      <MessageCircle className="w-5 h-5 text-slate-900" />
-                    </div>
-                    <div>
-                      <h2 className="text-lg font-semibold">
-                        Talk to our team
-                      </h2>
-                      <p className="text-xs text-slate-300">
-                        Send your query and get a response within one business
-                        day.
-                      </p>
-                    </div>
-                  </div>
-
-                  <ul className="space-y-2 text-sm text-slate-100/90 mb-4">
-                    <li>• Visa & e-visa assistance</li>
-                    <li>• Attestation & document legalization</li>
-                    <li>• Insurance and travel support</li>
-                  </ul>
-
-                  <div className="grid grid-cols-2 gap-3 text-xs text-slate-300">
-                    <div>
-                      <p className="font-semibold text-slate-100 mb-1">
-                        Response Time
-                      </p>
-                      <p>Within 24 business hours</p>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-slate-100 mb-1">
-                        Support Modes
-                      </p>
-                      <p>Email / Phone / WhatsApp</p>
-                    </div>
-                  </div>
-
-                  <div className="absolute -top-7 right-4 hidden sm:block">
-                    <div className="h-12 w-12 rounded-full bg-sky-400/80 blur-sm" />
-                  </div>
-                </Card>
+               
               </div>
             </div>
           </div>

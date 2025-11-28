@@ -7,7 +7,7 @@ type Slide = {
   image: string;
   badge: string;
   titleLines: string[];
-  description: string;
+  description: string; // 1 short EGS-style line
   primaryCta: string;
   secondaryCta: string;
 };
@@ -15,67 +15,37 @@ type Slide = {
 const slides: Slide[] = [
   {
     id: 1,
-    image: "/visa/bone.avif",
-    badge: "Your Trusted Visa Partner",
+    image: "/translation/bone.jpg",
+    badge: "Certified Translation by EGS Group",
     titleLines: [
-      "India's Leading B2B Visa",
-      "Platform for Travel",
-      "Businesses",
+      "Certificate Translation",
+      "You Can Trust",
+      "for Global Use",
     ],
     description:
-      "EGS Group simplifies visa processing with reliable, accurate, and fully managed backend support—helping travel agencies and tour operators deliver faster approvals with complete confidence.",
-    primaryCta: "Get Started",
-    secondaryCta: "Contact Us",
+      "EGS Group delivers accurate, legally valid translations for your degrees, diplomas and official certificates.",
+    primaryCta: "Enquire for Translation",
+    secondaryCta: "Talk to Our Team",
   },
-
   {
     id: 2,
-    image: "/visa/btwo.jpg",
-    badge: "Reliable & Faster Processing",
-    titleLines: ["End-to-End Visa", "Processing Support", "for Your Clients"],
+    image: "/translation/two.jpg",
+    badge: "Immigration-Ready Documents",
+    titleLines: [
+      "Immigration Translation",
+      "for Visa & PR",
+      "Applications",
+    ],
     description:
-      "From itinerary verification to document review and embassy submission, EGS ensures seamless, error-free workflows so you can focus on growing your travel business.",
-    primaryCta: "Explore Services",
-    secondaryCta: "Talk to Expert",
-  },
-
-  {
-    id: 3,
-    image: "/visa/three.jpg",
-    badge: "Global Visa Coverage",
-    titleLines: ["Visas for 100+", "Destinations", "Worldwide"],
-    description:
-      "Powered by strong expertise and international compliance knowledge, EGS supports visa applications across major leisure, corporate, MICE, and student destinations with unmatched accuracy.",
-    primaryCta: "View Countries",
-    secondaryCta: "Partner With Us",
-  },
-
-  {
-    id: 4,
-    image: "/visa/four.jpg",
-    badge: "Made for Travel Agencies",
-    titleLines: ["Smart Dashboard for", "Travel Agents &", "Visa Consultants"],
-    description:
-      "EGS provides a streamlined digital workspace where you can upload documents, track progress in real time, and manage all visa files effortlessly with total transparency.",
-    primaryCta: "Book a Demo",
-    secondaryCta: "Sign Up",
-  },
-
-  {
-    id: 5,
-    image: "/visa/five.jpg",
-    badge: "Trusted by Thousands",
-    titleLines: ["Reliable Backend", "Team for High", "Visa Volumes"],
-    description:
-      "With a dedicated, experienced, and process-driven operations team, EGS ensures high-volume visa handling with precision, compliance, and consistent customer satisfaction.",
-    primaryCta: "Scale with Us",
-    secondaryCta: "Schedule Call",
+      "Specialised translations for immigration, PR and visa files aligned with embassy and consulate requirements.",
+    primaryCta: "Get Immigration Support",
+    secondaryCta: "Schedule a Call",
   },
 ];
 
-const AUTO_SLIDE_INTERVAL = 4000; // 7 seconds
+const AUTO_SLIDE_INTERVAL = 3000;
 
-const VisaBannerCarousel: React.FC = () => {
+const TranslationBannerCarousel: React.FC = () => {
   const [current, setCurrent] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -105,23 +75,23 @@ const VisaBannerCarousel: React.FC = () => {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      {/* SLIDES WRAPPER */}
+      {/* Slides wrapper */}
       <div
         className="flex h-full transition-transform duration-700 ease-out"
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {slides.map((slide) => (
-          <div
-            key={slide.id}
-            className="relative w-full flex-shrink-0"
-          >
+          <div key={slide.id} className="relative w-full flex-shrink-0">
             {/* Background image */}
             <div
               className="absolute inset-0 bg-center"
-              style={{ backgroundImage: `url(${slide.image})`, backgroundSize:"100% 100%"}}
+              style={{
+                backgroundImage: `url(${slide.image})`,
+                backgroundSize: "100% 100%", // same as your visa banner
+              }}
             />
 
-            {/* Dark overlay gradient */}
+            {/* Dark overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/20" />
 
             {/* Content */}
@@ -141,12 +111,12 @@ const VisaBannerCarousel: React.FC = () => {
                   ))}
                 </h1>
 
-                {/* Description */}
+                {/* Short EGS-style line */}
                 <p className="text-sm sm:text-base md:text-lg text-slate-100 max-w-xl leading-relaxed">
                   {slide.description}
                 </p>
 
-                {/* CTA Buttons */}
+                {/* CTA buttons */}
                 <div className="flex flex-wrap gap-3 sm:gap-4 pt-2">
                   <button className="inline-flex items-center justify-center rounded-full bg-rose-500 px-6 sm:px-7 py-2.5 text-sm sm:text-base font-semibold text-white shadow-lg hover:bg-rose-600 transition">
                     {slide.primaryCta} <span className="ml-2 text-sm">➜</span>
@@ -161,7 +131,7 @@ const VisaBannerCarousel: React.FC = () => {
         ))}
       </div>
 
-      {/* Left / Right Arrows */}
+      {/* Arrows */}
       <button
         type="button"
         onClick={prev}
@@ -198,4 +168,4 @@ const VisaBannerCarousel: React.FC = () => {
   );
 };
 
-export default VisaBannerCarousel;
+export default TranslationBannerCarousel;
