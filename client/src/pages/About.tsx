@@ -13,7 +13,7 @@ export default function AboutUsBanner() {
     <>
         <Header/>
        
-     <div className="mt-[100px]">
+     <div className="mt-[80px]">
         <AboutHeroEGS/>
      </div>
    <section className="relative overflow-hidden bg-slate-50 py-16 md:py-24">
