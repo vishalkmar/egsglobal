@@ -46,7 +46,7 @@ export default function Contact() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
       <Header />
-      <main className="flex-1 pt-16 md:pt-20">
+      <main className="flex-1 pt-6 md:pt-20">
         {/* HERO / BANNER */}
         <section
           className="
@@ -77,7 +77,7 @@ export default function Contact() {
             <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-40 h-40 bg-cyan-400/20 rounded-full blur-3xl" />
           </div>
 
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 lg:py-24">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14 items-center">
               {/* LEFT: Heading + copy */}
               <div>
