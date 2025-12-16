@@ -1,4 +1,8 @@
-import React, { useMemo, useState } from "react";
+"use client";
+
+import React, { useEffect, useMemo, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 type Destination = {
   name: string;
@@ -105,10 +109,12 @@ const DESTINATIONS: Destination[] = [
 
 function MoreCountriesCard() {
   return (
-    <article className="rounded-3xl border border-slate-100 bg-gradient-to-br from-slate-900 via-sky-900 to-slate-900 shadow-[0_10px_35px_rgba(15,23,42,0.08)] overflow-hidden flex flex-col min-h-[290px]">
+    <article
+      data-aos="zoom-in"
+      className="rounded-3xl border border-slate-100 bg-gradient-to-br from-slate-900 via-sky-900 to-slate-900 shadow-[0_10px_35px_rgba(15,23,42,0.08)] overflow-hidden flex flex-col min-h-[290px]"
+    >
       <div className="relative h-54 md:h-68 w-full overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
-       
 
         <div className="h-full w-full flex items-center justify-center">
           <div className="text-center px-6">
@@ -116,7 +122,8 @@ function MoreCountriesCard() {
               We process many more countries
             </p>
             <p className="mt-2 text-white/80 text-sm">
-              Didn’t find your destination here? Share your country and we’ll guide you.
+              Didn’t find your destination here? Share your country and we’ll
+              guide you.
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2 justify-center">
@@ -144,11 +151,15 @@ function MoreCountriesCard() {
 
         <div className="grid grid-cols-2 gap-2 text-[11px] md:text-xs text-white/80">
           <div className="bg-white/10 rounded-2xl px-3 py-2">
-            <p className="font-semibold text-[11px] text-white/90">Document Check</p>
+            <p className="font-semibold text-[11px] text-white/90">
+              Document Check
+            </p>
             <p className="mt-1">Free guidance</p>
           </div>
           <div className="bg-white/10 rounded-2xl px-3 py-2">
-            <p className="font-semibold text-[11px] text-white/90">Processing</p>
+            <p className="font-semibold text-[11px] text-white/90">
+              Processing
+            </p>
             <p className="mt-1">Country-specific</p>
           </div>
         </div>
@@ -163,24 +174,30 @@ export default function PopularDestinations() {
 
   const handleLoadMore = () => setVisibleCount(DESTINATIONS.length);
 
-  // Figure out if we should add filler cards (desktop/tablet)
-  // - mobile: 1 column => no gap
-  // - sm: 2 columns
-  // - lg: 3 columns
+  useEffect(() => {
+    AOS.init({
+      duration: 750,
+      once: false, // repeat when you scroll back
+      offset: 120,
+      easing: "ease-out",
+      mirror: true,
+    });
+  }, []);
+
+  // refresh AOS when "Load More" shows new cards
+  useEffect(() => {
+    AOS.refreshHard();
+  }, [visibleCount]);
+
   const fillers = useMemo(() => {
     const count = visibleDestinations.length;
 
-    // For lg (3 columns): if remainder 1 => add 2 fillers, remainder 2 => add 1 filler
     const rem3 = count % 3;
     const needForLg = rem3 === 0 ? 0 : 3 - rem3;
 
-    // For sm (2 columns): if remainder 1 => add 1 filler
     const rem2 = count % 2;
     const needForSm = rem2 === 0 ? 0 : 1;
 
-    // We’ll render 2 fillers max, and show/hide by responsive classes:
-    // - one filler visible on sm (when needForSm=1)
-    // - fillers visible on lg based on needForLg
     return { needForLg, needForSm };
   }, [visibleDestinations.length]);
 
@@ -189,22 +206,35 @@ export default function PopularDestinations() {
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-8">
-          <p className="text-sm font-semibold tracking-[0.2em] text-rose-500 uppercase">
+          <p
+            data-aos="fade-down"
+            className="text-sm font-semibold tracking-[0.2em] text-rose-500 uppercase"
+          >
             Handpicked for you
           </p>
-          <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 mt-2">
+          <h2
+            data-aos="fade-down"
+            data-aos-delay="80"
+            className="text-2xl md:text-3xl font-semibold text-slate-900 mt-2"
+          >
             Popular Visa Destinations
           </h2>
-          <p className="text-slate-500 text-sm md:text-base mt-2">
+          <p
+            data-aos="fade-down"
+            data-aos-delay="140"
+            className="text-slate-500 text-sm md:text-base mt-2"
+          >
             Browse top countries travellers are applying for right now.
           </p>
         </div>
 
         {/* Grid */}
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {visibleDestinations.map((dest) => (
+          {visibleDestinations.map((dest, index) => (
             <article
               key={dest.name}
+              data-aos="zoom-in"
+              data-aos-delay={Math.min(index * 120, 720)}
               className="bg-white rounded-3xl shadow-[0_10px_35px_rgba(15,23,42,0.08)] overflow-hidden border border-slate-100 flex flex-col"
             >
               {/* Image section */}
@@ -223,7 +253,6 @@ export default function PopularDestinations() {
 
               {/* Content section */}
               <div className="px-4 pt-3 pb-2 flex flex-col gap-3 flex-1">
-                {/* Title + tags */}
                 <div className="flex items-center justify-between gap-2">
                   <h3 className="text-base md:text-lg font-semibold text-slate-900">
                     {dest.name}
@@ -238,7 +267,6 @@ export default function PopularDestinations() {
                   </div>
                 </div>
 
-                {/* Info row */}
                 <div className="grid grid-cols-2 gap-2 text-[11px] md:text-xs text-slate-500 mt-1">
                   <div className="bg-slate-50 rounded-2xl px-3 py-2">
                     <p className="font-semibold text-[11px] text-slate-600">
@@ -269,8 +297,6 @@ export default function PopularDestinations() {
               <MoreCountriesCard />
             </div>
           )}
-
-         
         </div>
 
         {/* Load more */}

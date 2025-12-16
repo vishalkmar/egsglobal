@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 type VisaType = "Tourist" | "Work" | "Business";
 
@@ -50,6 +52,16 @@ export default function VisaStickerCard() {
   });
 
   const [attachments, setAttachments] = useState<(File | null)[]>([null]);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 750,
+      once: false,
+      offset: 120,
+      easing: "ease-out",
+      mirror: true,
+    });
+  }, []);
 
   const isFormValid = useMemo(() => {
     if (!form.name.trim()) return false;
@@ -107,23 +119,22 @@ export default function VisaStickerCard() {
   };
 
   return (
-    <section className="w-full bg-white px-4 py-10 mt-[70px]"
-    style={{
-              background:
-                "radial-gradient(900px 500px at 18% 25%, rgba(99,102,241,0.45) 0%, rgba(15,23,42,0) 60%)," +
-                "radial-gradient(700px 450px at 85% 30%, rgba(56,189,248,0.30) 0%, rgba(15,23,42,0) 55%)," +
-                "radial-gradient(800px 520px at 55% 85%, rgba(244,114,182,0.18) 0%, rgba(15,23,42,0) 60%)," +
-                "linear-gradient(135deg, rgba(2,6,23,1) 0%, rgba(15,23,42,1) 35%, rgba(2,6,23,1) 100%)",
-            }}
+    <section
+      className="w-full bg-white px-4 py-10 mt-[70px]"
+      style={{
+        background:
+          "radial-gradient(900px 500px at 18% 25%, rgba(99,102,241,0.45) 0%, rgba(15,23,42,0) 60%)," +
+          "radial-gradient(700px 450px at 85% 30%, rgba(56,189,248,0.30) 0%, rgba(15,23,42,0) 55%)," +
+          "radial-gradient(800px 520px at 55% 85%, rgba(244,114,182,0.18) 0%, rgba(15,23,42,0) 60%)," +
+          "linear-gradient(135deg, rgba(2,6,23,1) 0%, rgba(15,23,42,1) 35%, rgba(2,6,23,1) 100%)",
+      }}
     >
       <div className="max-w-6xl mx-auto">
         {/* Sticker Wrapper */}
-        <div className="relative overflow-hidden rounded-[28px]  shadow-2xl">
-          {/* Navy lighting background */}
-          <div
-            className="absolute inset-0"
-            
-          />
+        <div
+         
+          className="relative overflow-hidden rounded-[28px] shadow-2xl"
+        >
           <div className="absolute inset-0 bg-gradient-to-r from-black/35 via-black/15 to-transparent" />
 
           {/* Decorative glows */}
@@ -132,8 +143,8 @@ export default function VisaStickerCard() {
 
           {/* Content */}
           <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6 p-6 md:p-8">
-            {/* LEFT: Sticker info */}
-            <div className="text-white">
+            {/* LEFT */}
+            <div data-aos="fade-right" className="text-white">
               <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-4 py-2 text-xs sm:text-sm font-semibold">
                 <span className="h-2 w-2 rounded-full bg-rose-400" />
                 EGS Group Visa Desk
@@ -144,36 +155,57 @@ export default function VisaStickerCard() {
               </h2>
 
               <p className="mt-3 text-sm sm:text-base text-slate-100 leading-relaxed max-w-xl">
-              A Sticker Visa is an embassy-issued visa stamped on your passport after approval. It requires proper documentation, appointment scheduling, and passport submission.
+                A Sticker Visa is an embassy-issued visa stamped on your passport
+                after approval. It requires proper documentation, appointment
+                scheduling, and passport submission.
               </p>
 
               <p className="mt-3 text-sm sm:text-base text-slate-100 leading-relaxed max-w-xl">
-             With EGS, you upload documents once and we handle verification, formatting, embassy submission, and follow-ups as per country rules—ensuring a smooth, error-free process with faster turnaround.
+                With EGS, you upload documents once and we handle verification,
+                formatting, embassy submission, and follow-ups as per country
+                rules—ensuring a smooth, error-free process with faster
+                turnaround.
               </p>
 
+              {/* Stats: subtle stagger */}
               <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="rounded-2xl border border-white/15 bg-white/10 p-4">
+                <div
+                  data-aos="fade-up"
+                  data-aos-delay="80"
+                  className="rounded-2xl border border-white/15 bg-white/10 p-4"
+                >
                   <p className="text-xs text-slate-200">Processing</p>
                   <p className="text-base font-semibold">2–7 Working Days</p>
                 </div>
-                <div className="rounded-2xl border border-white/15 bg-white/10 p-4">
+                <div
+                  data-aos="fade-up"
+                  data-aos-delay="140"
+                  className="rounded-2xl border border-white/15 bg-white/10 p-4"
+                >
                   <p className="text-xs text-slate-200">Document Check</p>
                   <p className="text-base font-semibold">Accuracy First</p>
                 </div>
-               
-                <div className="rounded-2xl border border-white/15 bg-white/10 p-4">
+                <div
+                  data-aos="fade-up"
+                  data-aos-delay="200"
+                  className="rounded-2xl border border-white/15 bg-white/10 p-4 sm:col-span-2"
+                >
                   <p className="text-xs text-slate-200">Support</p>
                   <p className="text-base font-semibold">Dedicated Team</p>
                 </div>
               </div>
 
               <div className="mt-6 text-xs text-slate-200/90">
-                Supported files: Images (all formats) + PDF. All fields are mandatory.
+                Supported files: Images (all formats) + PDF. All fields are
+                mandatory.
               </div>
             </div>
 
-            {/* RIGHT: Form */}
-            <div className="bg-white/95 backdrop-blur rounded-2xl border border-white/20 shadow-xl p-5 md:p-6">
+            {/* RIGHT */}
+            <div
+              data-aos="fade-left"
+              className="bg-white/95 backdrop-blur rounded-2xl border border-white/20 shadow-xl p-5 md:p-6"
+            >
               <h3 className="text-lg md:text-xl font-semibold text-slate-900">
                 Quick Application Form
               </h3>
@@ -298,12 +330,15 @@ export default function VisaStickerCard() {
                     {attachments.map((file, idx) => (
                       <div
                         key={idx}
+                        data-aos="fade-up"
+                        data-aos-delay={Math.min(80 + idx * 60, 360)}
                         className="rounded-xl border border-slate-200 bg-white p-3"
                       >
                         <div className="flex items-start justify-between gap-3">
                           <div className="w-full">
                             <p className="text-xs text-slate-500 mb-2">
-                              Document {idx + 1} <span className="text-rose-500">*</span>
+                              Document {idx + 1}{" "}
+                              <span className="text-rose-500">*</span>
                             </p>
                             <input
                               type="file"
@@ -316,10 +351,13 @@ export default function VisaStickerCard() {
                             />
                             {file ? (
                               <p className="mt-2 text-xs text-slate-600">
-                                Selected: <span className="font-medium">{file.name}</span>
+                                Selected:{" "}
+                                <span className="font-medium">{file.name}</span>
                               </p>
                             ) : (
-                              <p className="mt-2 text-xs text-slate-500">No file selected</p>
+                              <p className="mt-2 text-xs text-slate-500">
+                                No file selected
+                              </p>
                             )}
                           </div>
 

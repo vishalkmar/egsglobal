@@ -1,6 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const eVisaIntroTitle =
   "E-Visa Services – Fast, reliable, and hassle-free online visa assistance";
@@ -49,17 +51,42 @@ const eVisaServices = [
 ];
 
 const EVisaServices: React.FC = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: false, // repeat on scroll
+      offset: 120,
+      easing: "ease-out",
+      mirror: true,
+    });
+  }, []);
+
   return (
-    <section className="bg-white py-12 sm:py-16 lg:py-20">
-        
+    <section className="bg-white py-12 sm:py-16 lg:py-20 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-center py-[40px] md:text-5xl text-3xl font-bold">{eVisaIntroTitle}</h1>
-         <p className="text-center mb-[40px]" >{eVisaIntroText}</p>
+        {/* Heading */}
+        <h1
+          data-aos="fade-left"
+          className="text-center py-[40px] md:text-5xl text-3xl font-bold"
+        >
+          {eVisaIntroTitle}
+        </h1>
+
+        {/* Description */}
+        <p
+          data-aos="fade-right"
+          className="text-center mb-[40px] text-slate-600 max-w-4xl mx-auto leading-relaxed"
+        >
+          {eVisaIntroText}
+        </p>
+
         {/* Services cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-8">
           {eVisaServices.map((service, idx) => (
             <div
               key={idx}
+              data-aos="zoom-in"
+              data-aos-delay={idx * 120}
               className="flex flex-col items-center text-center space-y-4"
             >
               {/* Circle image card */}
@@ -67,7 +94,7 @@ const EVisaServices: React.FC = () => {
                 <img
                   src={service.imageSrc}
                   alt={service.title}
-                  className="w-full h-full "
+                  className="w-full h-full object-cover"
                   height={100}
                   width={100}
                 />

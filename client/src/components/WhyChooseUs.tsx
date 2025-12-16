@@ -1,4 +1,7 @@
 import { Award, Clock, Target, Heart } from "lucide-react";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const TEAM_IMAGE_URL =
   "https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=1200";
@@ -7,12 +10,25 @@ const ABOUT_IMAGE_URL =
   "https://images.pexels.com/photos/3184416/pexels-photo-3184416.jpeg?auto=compress&cs=tinysrgb&w=1200";
 
 function WhyChooseUs() {
+
+  
+  useEffect(() => {
+  AOS.init({
+    duration: 800,
+    once: false,   // ✅ repeat on every scroll in/out
+    offset: 80,
+    easing: "ease-in-out",
+   
+  });
+}, []);
+
+  
   return (
     <>
       {/* TOP: curved image + copy + stats */}
       <section className="relative overflow-hidden bg-slate-50 py-12 sm:py-14 lg:py-20">
         {/* Main top heading */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl text-center font-bold md:py-10 lg:py-16 text-sky-600 tracking-wide px-4">
+        <h1 data-aos="zoom-in"  className="text-3xl sm:text-4xl md:text-5xl text-center font-bold md:py-10 lg:py-16 text-sky-600 tracking-wide px-4">
           EGS Group – Effortless Global Travel
         </h1>
 
@@ -27,7 +43,7 @@ function WhyChooseUs() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
           <div className="flex flex-col-reverse lg:flex-row items-center gap-10 lg:gap-16 xl:gap-20">
             {/* LEFT SIDE – Text */}
-            <div className="w-full lg:w-1/2 text-center lg:text-left">
+            <div className="w-full lg:w-1/2 text-center lg:text-left"  data-aos="fade-right" >
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-sky-600 tracking-wide">
                 Why Choose Us?
               </h2>
@@ -54,7 +70,7 @@ function WhyChooseUs() {
             </div>
 
             {/* RIGHT SIDE — HEXAGON IMAGE */}
-            <div className="w-full lg:w-1/2 flex justify-center">
+            <div className="w-full lg:w-1/2 flex justify-center" data-aos="fade-left" >
               <div className="relative">
                 {/* Hexagon mask wrapper */}
                 <div
@@ -86,7 +102,7 @@ function WhyChooseUs() {
         </div>
 
         {/* SECOND SECTION – Icons + Reasons */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-8 sm:pb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-8 sm:pb-12" data-aos="zoom-in">
           <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16 xl:gap-20">
             {/* Left circular graphic */}
             <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 flex-shrink-0 mb-6 lg:mb-0">

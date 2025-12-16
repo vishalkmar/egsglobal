@@ -2,6 +2,10 @@
 
 import React, { useState, ChangeEvent, FormEvent } from "react";
 
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 type VisaType = "work" | "business" | "tourist";
 
 interface MeetGreetFormData {
@@ -17,6 +21,18 @@ interface MeetGreetFormData {
 const countries = ["North Macedonia", "Romania", "Serbia", "Italy", "Croatia"];
 
 const AppointmentSubmissionHero: React.FC = () => {
+
+    useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: false,   // ✅ repeat on every scroll in/out
+      offset: 80,
+      easing: "ease-in-out",
+     
+    });
+  }, []);
+  
+
    const [typedHeading, setTypedHeading] = useState("");
    const [formData, setFormData] = useState<MeetGreetFormData>({
      name: "",
@@ -62,7 +78,7 @@ const AppointmentSubmissionHero: React.FC = () => {
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-14 items-stretch">
           {/* LEFT SIDE – TEXT BLOCK */}
-          <div className="flex flex-col justify-center space-y-6 md:space-y-8 text-white">
+          <div data-aos="fade-right" className="flex flex-col justify-center space-y-6 md:space-y-8 text-white">
             <div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.3rem] font-bold leading-tight md:leading-[1.15] space-y-1">
                 <span className="block">Assistance in</span>
@@ -91,7 +107,7 @@ const AppointmentSubmissionHero: React.FC = () => {
 
           {/* RIGHT SIDE – FORM CARD */}
              {/* RIGHT: FORM CARD */}
-            <div className="order-2 lg:order-2 flex items-stretch">
+            <div data-aos="fade-left" className="order-2 lg:order-2 flex items-stretch">
               <form
                 onSubmit={handleSubmit}
                 className="w-full bg-white/95 backdrop-blur-[4px] text-slate-900 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.45)] px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-9 space-y-4"

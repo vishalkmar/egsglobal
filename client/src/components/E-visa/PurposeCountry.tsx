@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 
+import AOS from "aos";
+import "aos/dist/aos.css";
 /**
  * DATA TYPES
  */
@@ -1035,6 +1037,17 @@ function getDocs(purpose: PurposeKey, country: string): CountryDoc | null {
 }
 
 export default function VisaPurposeTwoColumnFullCustom() {
+    
+    useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: false,   // ✅ repeat on every scroll in/out
+      offset: 80,
+      easing: "ease-in-out",
+     
+    });
+  }, []);
+
   const [activePurpose, setActivePurpose] = useState<PurposeKey>("Tourism");
   const [selectedCountry, setSelectedCountry] = useState<string>(PURPOSES.Tourism[0]);
   const [customCountry, setCustomCountry] = useState<string>("");
@@ -1061,7 +1074,7 @@ export default function VisaPurposeTwoColumnFullCustom() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* LEFT */}
-          <div className="bg-white border border-slate-200 rounded-2xl px-6 md:px-8 py-7 shadow-lg shadow-slate-200/70">
+          <div  data-aos="fade-right"  className="bg-white border border-slate-200 rounded-2xl px-6 md:px-8 py-7 shadow-lg shadow-slate-200/70">
             <div className="mb-6">
               <p className="text-sm md:text-base font-medium mb-3">Select a purpose:</p>
               <div className="flex flex-wrap gap-3">
@@ -1151,7 +1164,7 @@ export default function VisaPurposeTwoColumnFullCustom() {
           </div>
 
           {/* RIGHT */}
-          <div className="bg-white border border-slate-200 rounded-2xl px-6 md:px-8 py-7 shadow-lg shadow-slate-200/70">
+          <div  data-aos="fade-left" className="bg-white border border-slate-200 rounded-2xl px-6 md:px-8 py-7 shadow-lg shadow-slate-200/70">
             <div className="mb-5">
               <p className="text-xs md:text-sm text-slate-500">Showing documents for</p>
               <h2 className="text-xl md:text-2xl font-semibold">{activeCountry}</h2>

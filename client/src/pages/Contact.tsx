@@ -8,11 +8,27 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 
 const CONTACT_BANNER_GRADIENT =
   "bg-gradient-to-br from-blue-700 via-indigo-700 to-purple-700";
 
 export default function Contact() {
+
+    useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: false,   // ✅ repeat on every scroll in/out
+      offset: 80,
+      easing: "ease-in-out",
+     
+    });
+  }, []);
+
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -56,7 +72,7 @@ export default function Contact() {
             bg-[radial-gradient(circle_at_5%_10%,rgba(37,99,235,0.35),transparent_55%),radial-gradient(circle_at_80%_90%,rgba(147,51,234,0.35),transparent_60%)]
           "
         >
-          <h1
+          <h1 data-aos="fade-down"
             className="
               text-center
               text-4xl sm:text-5xl md:text-6xl
@@ -80,7 +96,7 @@ export default function Contact() {
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14 items-center">
               {/* LEFT: Heading + copy */}
-              <div>
+              <div data-aos="fade-right">
                 <p className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.28em] uppercase text-sky-200 mb-3">
                   <span className="h-[1px] w-8 bg-sky-300/80" />
                   Contact Us
@@ -133,7 +149,7 @@ export default function Contact() {
               </div>
 
               {/* RIGHT: Highlight / mini info card */}
-              <div className="flex justify-center lg:justify-end">
+              <div className="flex justify-center lg:justify-end" data-aos="fade-left">
   <img
     src="/aboutimages.jpg"   // 👉 yahan apna image path daal dena
     alt=""
@@ -150,7 +166,7 @@ export default function Contact() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-14 items-stretch">
               {/* FORM – fills column height */}
-              <div className="flex flex-col h-full">
+              <div className="flex flex-col h-full" data-aos="zoom-in">
                 <Card className="relative border-slate-100 shadow-xl overflow-hidden flex-1 flex flex-col">
                   {/* gradient bar top */}
                   <div className="h-1 w-full bg-gradient-to-r from-sky-500 via-cyan-400 to-purple-500" />
@@ -270,7 +286,7 @@ export default function Contact() {
               </div>
 
               {/* CONTACT INFO SIDE – same column height, stacked cards */}
-              <div className="flex flex-col h-full space-y-6">
+              <div className="flex flex-col h-full space-y-6" data-aos="fede-left">
                 <div>
                   <h2 className="text-2xl font-bold mb-2">
                     Contact Information
@@ -282,7 +298,7 @@ export default function Contact() {
                   </p>
                 </div>
 
-                <Card className="p-5 sm:p-6">
+                <Card className="p-5 sm:p-6" data-aos="fade-left">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-md bg-gradient-to-br from-sky-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
                       <Mail className="w-6 h-6 text-white" />
@@ -299,7 +315,7 @@ export default function Contact() {
                   </div>
                 </Card>
 
-                <Card className="p-5 sm:p-6">
+                <Card className="p-5 sm:p-6" data-aos="fade-right">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-md bg-gradient-to-br from-sky-500 to-indigo-500 flex items-center justify-center flex-shrink-0">
                       <Phone className="w-6 h-6 text-white" />
@@ -316,7 +332,7 @@ export default function Contact() {
                   </div>
                 </Card>
 
-                <Card className="p-5 sm:p-6">
+                <Card className="p-5 sm:p-6" data-aos="fade-left">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-md bg-gradient-to-br from-sky-500 to-cyan-600 flex items-center justify-center flex-shrink-0">
                       <MapPin className="w-6 h-6 text-white" />
@@ -334,7 +350,7 @@ export default function Contact() {
                   </div>
                 </Card>
 
-                <Card className="p-5 sm:p-6">
+                <Card className="p-5 sm:p-6" data-aos="fade-right">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-md bg-gradient-to-br from-sky-500 to-purple-600 flex items-center justify-center flex-shrink-0">
                       <Clock className="w-6 h-6 text-white" />

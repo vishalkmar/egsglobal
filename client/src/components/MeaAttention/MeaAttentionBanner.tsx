@@ -1,4 +1,9 @@
 import React, { useMemo, useState, ChangeEvent, FormEvent } from "react";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+
 
 type DocCategory =
   | "Educational Documents"
@@ -158,6 +163,17 @@ const MeaAttestationHero: React.FC = () => {
     alert("Your enquiry has been submitted. Check console for data.");
   };
 
+    useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: false,   // ✅ repeat on every scroll in/out
+      offset: 80,
+      easing: "ease-in-out",
+     
+    });
+  }, []);
+  
+
   return (
     <section className="relative w-full overflow-hidden bg-black py-14 md:pt-36 md:pb-20">
       {/* Background Image */}
@@ -172,17 +188,17 @@ const MeaAttestationHero: React.FC = () => {
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Center heading */}
         <div className="text-center text-white">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
+          <h1 data-aos="fade-down" className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
             Ministry of External Affairs – MEA Attestation
           </h1>
-          <p className="mt-3 text-sm sm:text-base text-slate-100/90 max-w-3xl mx-auto leading-relaxed">
+          <p data-aos="fade-left" className="mt-3 text-sm sm:text-base text-slate-100/90 max-w-3xl mx-auto leading-relaxed">
             EGS Group provides end-to-end support for MEA attestation of personal, educational and commercial documents.
             From authentication to MEA stamping and safe delivery, we manage the entire process.
           </p>
         </div>
 
         {/* Form 75% width centered */}
-        <div className="mt-10 flex justify-center">
+        <div className="mt-10 flex justify-center" data-aos="zoom-in">
           <div className="w-full lg:w-[75%] bg-white/95 backdrop-blur rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.45)] border border-white/20 px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-9">
             {/* Logo + subtitle */}
             <div className="flex flex-col items-center mb-6">

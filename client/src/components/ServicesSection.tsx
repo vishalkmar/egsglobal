@@ -1,12 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import embassyImg from "@assets/generated_images/embassy_legalization_service.png";
 import attestationImg from "@assets/generated_images/attestation_certificate_service.png";
 import insuranceImg from "@assets/generated_images/travel_insurance_documents.png";
 import meetGreetImg from "@assets/generated_images/meet_and_greet_service.png";
 import accommodationImg from "@assets/generated_images/accommodation_service.png";
 import visaImg from "@assets/generated_images/visa_approval_service.png";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const services = [
   {
@@ -54,31 +56,49 @@ const services = [
 ];
 
 const Services = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 700,
+      once: false,
+      offset: 120,
+      easing: "ease-in-out",
+      mirror: true,
+    });
+  }, []);
+
   return (
     <section className="bg-white overflow-hidden text-gray-700 relative">
-      {/* subtle top gradient hint (like sunlight reflection on white) */}
-      <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-emerald-50 via-white to-transparent pointer-events-none"></div>
+      {/* subtle top gradient hint */}
+      <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-emerald-50 via-white to-transparent pointer-events-none" />
 
       {/* ---------- HEADER SECTION ---------- */}
-      <div className="w-full text-center py-10 px-4 relative z-10">
+      <div className="w-full text-center py-10 px-4 relative z-10" data-aos="fade-right">
         <h1 className="text-4xl text-center md:text-5xl font-bold md:py-16 text-sky-600 tracking-wide">
-               Services We Provide
-            </h1>
-        <p className="text-gray-600 text-[1rem] sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-         EGS Group provides seamless global travel and documentation support, offering visas, legalization, insurance, airport assistance, and accommodation with expert, reliable service.
+          Services We Provide
+        </h1>
+        <p
+          data-aos="fade-left"
+          className="text-gray-600 text-[1rem] sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed"
+        >
+          EGS Group provides seamless global travel and documentation support,
+          offering visas, legalization, insurance, airport assistance, and
+          accommodation with expert, reliable service.
         </p>
       </div>
 
-      {/* ---------- ITINERARY / SERVICES SECTION ---------- */}
+      {/* ---------- SERVICES SECTION ---------- */}
       <div className="py-6 px-4 sm:px-8 md:px-12 max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-20 text-center">
           {services.map((service, index) => (
             <div
               key={index}
+              data-aos="zoom-in"
+              data-aos-delay={index * 120} // ✅ one-by-one (stagger)
+              data-aos-duration="650"
               className="flex flex-col items-center relative hover:scale-[1.02] transition-transform duration-300"
             >
               <div className="relative mb-12 flex flex-col items-center">
-                {/* Curved Cap with color tone */}
+                {/* Curved Cap */}
                 <div className="absolute -top-12 left-1/2 -translate-x-1/2 z-10">
                   <svg
                     width="200"
@@ -94,9 +114,6 @@ const Services = () => {
                       strokeLinecap="round"
                     />
                   </svg>
-                  <div className="absolute inset-0 flex justify-center items-start pt-6">
-                   
-                  </div>
                 </div>
 
                 {/* Circle Image */}
@@ -114,7 +131,7 @@ const Services = () => {
                 {service.title}
               </h3>
 
-              {/* Description from services data */}
+              {/* Description */}
               <ul className="text-base text-gray-600 space-y-2 leading-relaxed max-w-xs">
                 <li className="text-[1rem]">{service.description}</li>
               </ul>
@@ -124,7 +141,7 @@ const Services = () => {
       </div>
 
       {/* Bottom soft gradient touch */}
-      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-teal-50 via-white to-transparent pointer-events-none"></div>
+      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-teal-50 via-white to-transparent pointer-events-none" />
     </section>
   );
 };

@@ -1,12 +1,22 @@
+// HRDRequirementsGuidelines.tsx
 "use client";
 
-import { FileText, ClipboardCheck, IndianRupee, HeadphonesIcon } from "lucide-react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import {
+  FileText,
+  ClipboardCheck,
+  IndianRupee,
+  HeadphonesIcon,
+} from "lucide-react";
 
 const REQUIREMENT_BLOCKS = [
   {
     title: "Document Eligibility",
     icon: FileText,
-    highlight: "Educational certificates, degrees & diplomas issued by recognised institutions.",
+    highlight:
+      "Educational certificates, degrees & diplomas issued by recognised institutions.",
     description:
       "Only academic documents from recognised boards, universities or professional institutes are considered for HRD attestation. This generally includes mark sheets, provisional and final degree certificates, diplomas and transcripts.",
   },
@@ -34,27 +44,48 @@ const REQUIREMENT_BLOCKS = [
 ];
 
 export default function HRDRequirementsGuidelines() {
+  useEffect(() => {
+    AOS.init({
+      duration: 650,
+      offset: 90,
+      easing: "ease-out",
+      once: false,
+      mirror: true,
+    });
+  }, []);
+
   return (
     <section className="py-16 md:py-20 bg-white">
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         {/* Heading */}
         <div className="mb-10 text-center">
-          <h2 className="text-3xl md:text-4xl font-semibold text-slate-900">
+          <h2
+            data-aos="fade-up"
+            className="text-3xl md:text-4xl font-semibold text-slate-900"
+          >
             HRD Attestation Requirements & Guidelines
           </h2>
-          <p className="mt-3 text-sm md:text-base text-slate-600 max-w-2xl mx-auto">
+          <p
+            data-aos="fade-up"
+            data-aos-delay="120"
+            className="mt-3 text-sm md:text-base text-slate-600 max-w-2xl mx-auto"
+          >
             Understand what you need to prepare before starting the HRD attestation
             process with EGS Group.
           </p>
         </div>
 
-        {/* 2x2 Card Grid – different style from timeline */}
+        {/* 2x2 Card Grid */}
         <div className="grid gap-6 md:gap-8 md:grid-cols-2">
-          {REQUIREMENT_BLOCKS.map((item) => {
+          {REQUIREMENT_BLOCKS.map((item, idx) => {
             const Icon = item.icon;
+            const delay = idx * 120;
+
             return (
               <div
                 key={item.title}
+                data-aos="fade-up"
+                data-aos-delay={delay}
                 className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/70 hover:bg-white shadow-sm hover:shadow-lg transition-all duration-300"
               >
                 {/* subtle gradient corner highlight */}
@@ -62,9 +93,14 @@ export default function HRDRequirementsGuidelines() {
 
                 <div className="relative p-5 md:p-6 space-y-3">
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-xl bg-sky-600 text-white flex items-center justify-center shadow-md">
+                    <div
+                      data-aos="zoom-in"
+                      data-aos-delay={delay + 80}
+                      className="h-10 w-10 rounded-xl bg-sky-600 text-white flex items-center justify-center shadow-md"
+                    >
                       <Icon className="w-5 h-5" />
                     </div>
+
                     <h3 className="text-base md:text-lg font-semibold text-slate-900">
                       {item.title}
                     </h3>

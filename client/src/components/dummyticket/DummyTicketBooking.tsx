@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const COUNTRY_OPTIONS = [
   "Bulgaria",
@@ -13,8 +15,10 @@ const COUNTRY_OPTIONS = [
 ];
 
 const DummyTicketBooking = () => {
-  const [activeTab, setActiveTab] = useState("dummyTicket"); // "dummyTicket" | "insurance"
-  const [tripType, setTripType] = useState("oneWay"); // "oneWay" | "roundTrip"
+  const [activeTab, setActiveTab] = useState<"dummyTicket" | "insurance">(
+    "dummyTicket"
+  );
+  const [tripType, setTripType] = useState<"oneWay" | "roundTrip">("oneWay");
 
   const [flightForm, setFlightForm] = useState({
     name: "",
@@ -34,46 +38,56 @@ const DummyTicketBooking = () => {
     travelEnd: "",
     destination: "",
     dob: "",
-    passportFile: null,
+    passportFile: null as File | null,
   });
 
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
-  // Dummy ticket form change (text + select)
-  const handleFlightChange = (e) => {
+  useEffect(() => {
+    AOS.init({
+      duration: 650,
+      offset: 90,
+      easing: "ease-out",
+      once: false,
+      mirror: true,
+    });
+  }, []);
+
+  // refresh animation on tab change (simple + clean)
+  useEffect(() => {
+    AOS.refresh();
+  }, [activeTab, tripType]);
+
+  const handleFlightChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFlightForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Insurance form change (text + select + file)
-  const handleInsuranceChange = (e) => {
-    const { name, type, value, files } = e.target;
+  const handleInsuranceChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
 
-    if (type === "file") {
-      setInsuranceForm((prev) => ({
-        ...prev,
-        passportFile: files && files.length > 0 ? files[0] : null,
-      }));
-    } else {
-      setInsuranceForm((prev) => ({ ...prev, [name]: value }));
+    if (e.target instanceof HTMLInputElement && e.target.type === "file") {
+      const file = e.target.files?.[0] ?? null;
+      setInsuranceForm((prev) => ({ ...prev, passportFile: file }));
+      return;
     }
+
+    setInsuranceForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    let payload = { tab: activeTab };
+    let payload: any = { tab: activeTab };
 
     if (activeTab === "dummyTicket") {
-      const {
-        name,
-        email,
-        mobile,
-        startLocation,
-        departureDate,
-        returnDate,
-      } = flightForm;
+      const { name, email, mobile, startLocation, departureDate, returnDate } =
+        flightForm;
 
       if (!name || !email || !mobile || !startLocation || !departureDate) {
         setError("Please fill all required fields in the dummy ticket form.");
@@ -90,7 +104,7 @@ const DummyTicketBooking = () => {
         ...flightForm,
         amount: 1000,
       };
-    } else if (activeTab === "insurance") {
+    } else {
       const {
         name,
         email,
@@ -118,10 +132,7 @@ const DummyTicketBooking = () => {
         return;
       }
 
-      payload = {
-        ...payload,
-        ...insuranceForm,
-      };
+      payload = { ...payload, ...insuranceForm };
     }
 
     console.log("Dummy ticket / Insurance form submit payload:", payload);
@@ -135,8 +146,12 @@ const DummyTicketBooking = () => {
     <section className="bg-white py-12 mt-[50px] sm:py-16 lg:py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-          {/* LEFT SIDE: info + image (same as before) */}
-          <div className="space-y-6">
+          {/* LEFT SIDE */}
+          <div
+            className="space-y-6"
+            data-aos="fade-right"
+            data-aos-delay="60"
+          >
             <div>
               <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900 mb-2">
                 Book Your Dummy Ticket in Minutes
@@ -148,11 +163,15 @@ const DummyTicketBooking = () => {
               </p>
             </div>
 
-            <div className="relative w-full h-[220px] sm:h-[260px] md:h-[300px] rounded-3xl overflow-hidden shadow-[0_18px_45px_rgba(15,23,42,0.18)]">
+            <div
+              className="relative w-full h-[220px] sm:h-[260px] md:h-[300px] rounded-3xl overflow-hidden shadow-[0_18px_45px_rgba(15,23,42,0.18)]"
+              data-aos="zoom-in"
+              data-aos-delay="160"
+            >
               <img
                 src="/dummyticketimage.webp"
                 alt="Dummy ticket booking"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-300 hover:scale-[1.02]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
               <div className="absolute bottom-4 left-4 right-4 text-white">
@@ -166,7 +185,7 @@ const DummyTicketBooking = () => {
           </div>
 
           {/* RIGHT SIDE: form */}
-          <div className="w-full">
+          <div className="w-full" data-aos="fade-left" data-aos-delay="90">
             <div className="border border-slate-200 rounded-2xl shadow-sm overflow-hidden bg-white">
               {/* Tabs */}
               <div className="flex bg-slate-100">
@@ -178,7 +197,7 @@ const DummyTicketBooking = () => {
                     key={tab.id}
                     type="button"
                     onClick={() => {
-                      setActiveTab(tab.id);
+                      setActiveTab(tab.id as any);
                       setError(null);
                     }}
                     className={`flex-1 py-2.5 text-sm sm:text-base font-medium border-b-2 transition-colors ${
@@ -198,16 +217,19 @@ const DummyTicketBooking = () => {
               >
                 {/* Error message */}
                 {error && (
-                  <div className="rounded-md bg-rose-50 border border-rose-200 px-3 py-2 text-xs sm:text-sm text-rose-700">
+                  <div
+                    data-aos="fade-down"
+                    className="rounded-md bg-rose-50 border border-rose-200 px-3 py-2 text-xs sm:text-sm text-rose-700"
+                  >
                     {error}
                   </div>
                 )}
 
                 {/* Dummy Ticket tab */}
                 {activeTab === "dummyTicket" && (
-                  <>
+                  <div data-aos="fade-up" data-aos-delay="50">
                     {/* Trip type toggle */}
-                    <div className="flex justify-center">
+                    <div className="flex justify-center" data-aos="fade-up">
                       <div className="inline-flex items-center gap-4 rounded-full bg-slate-100 px-5 py-2">
                         <label className="flex items-center gap-2 text-xs sm:text-sm text-slate-700 cursor-pointer">
                           <input
@@ -235,9 +257,8 @@ const DummyTicketBooking = () => {
                     </div>
 
                     {/* Fields */}
-                    <div className="space-y-3 sm:space-y-4">
-                      {/* Name */}
-                      <div className="space-y-1">
+                    <div className="space-y-3 sm:space-y-4 mt-4">
+                      <div className="space-y-1" data-aos="fade-up" data-aos-delay="80">
                         <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
                           NAME
                         </label>
@@ -251,8 +272,7 @@ const DummyTicketBooking = () => {
                         />
                       </div>
 
-                      {/* Email */}
-                      <div className="space-y-1">
+                      <div className="space-y-1" data-aos="fade-up" data-aos-delay="140">
                         <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
                           EMAIL
                         </label>
@@ -266,8 +286,7 @@ const DummyTicketBooking = () => {
                         />
                       </div>
 
-                      {/* Mobile */}
-                      <div className="space-y-1">
+                      <div className="space-y-1" data-aos="fade-up" data-aos-delay="200">
                         <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
                           MOBILE NO
                         </label>
@@ -281,8 +300,7 @@ const DummyTicketBooking = () => {
                         />
                       </div>
 
-                      {/* Destination country (select) */}
-                      <div className="space-y-1">
+                      <div className="space-y-1" data-aos="fade-up" data-aos-delay="260">
                         <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
                           DESTINATION COUNTRY
                         </label>
@@ -301,8 +319,7 @@ const DummyTicketBooking = () => {
                         </select>
                       </div>
 
-                      {/* Departure date */}
-                      <div className="space-y-1">
+                      <div className="space-y-1" data-aos="fade-up" data-aos-delay="320">
                         <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
                           DEPARTURE DATE
                         </label>
@@ -315,9 +332,8 @@ const DummyTicketBooking = () => {
                         />
                       </div>
 
-                      {/* Return date if round trip */}
                       {tripType === "roundTrip" && (
-                        <div className="space-y-1">
+                        <div className="space-y-1" data-aos="fade-up" data-aos-delay="380">
                           <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
                             RETURN DATE
                           </label>
@@ -333,7 +349,11 @@ const DummyTicketBooking = () => {
                     </div>
 
                     {/* Amount box */}
-                    <div className="rounded-md border border-slate-200 px-3 py-3 bg-slate-50 flex items-center justify-between mt-2">
+                    <div
+                      className="rounded-md border border-slate-200 px-3 py-3 bg-slate-50 flex items-center justify-between mt-4"
+                      data-aos="fade-up"
+                      data-aos-delay="440"
+                    >
                       <span className="text-xs sm:text-sm font-semibold text-slate-600">
                         Dummy Ticket Amount
                       </span>
@@ -341,15 +361,14 @@ const DummyTicketBooking = () => {
                         ₹ 1000
                       </span>
                     </div>
-                  </>
+                  </div>
                 )}
 
                 {/* Insurance tab */}
                 {activeTab === "insurance" && (
-                  <div className="space-y-3 sm:space-y-4">
-                    {/* Row 1: Name + Email */}
+                  <div className="space-y-3 sm:space-y-4" data-aos="fade-up" data-aos-delay="50">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                      <div className="space-y-1">
+                      <div className="space-y-1" data-aos="fade-up" data-aos-delay="80">
                         <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
                           NAME
                         </label>
@@ -362,7 +381,7 @@ const DummyTicketBooking = () => {
                         />
                       </div>
 
-                      <div className="space-y-1">
+                      <div className="space-y-1" data-aos="fade-up" data-aos-delay="140">
                         <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
                           EMAIL
                         </label>
@@ -376,9 +395,8 @@ const DummyTicketBooking = () => {
                       </div>
                     </div>
 
-                    {/* Row 2: Mobile + Insurance Type */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                      <div className="space-y-1">
+                      <div className="space-y-1" data-aos="fade-up" data-aos-delay="200">
                         <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
                           MOBILE NO
                         </label>
@@ -391,7 +409,7 @@ const DummyTicketBooking = () => {
                         />
                       </div>
 
-                      <div className="space-y-1">
+                      <div className="space-y-1" data-aos="fade-up" data-aos-delay="260">
                         <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
                           INSURANCE TYPE
                         </label>
@@ -402,19 +420,14 @@ const DummyTicketBooking = () => {
                           className="w-full rounded-md border border-slate-200 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 bg-white"
                         >
                           <option value="">Select insurance type</option>
-                          <option value="Travel Insurance">
-                            Travel Insurance
-                          </option>
-                          <option value="Student Insurance">
-                            Student Insurance
-                          </option>
+                          <option value="Travel Insurance">Travel Insurance</option>
+                          <option value="Student Insurance">Student Insurance</option>
                         </select>
                       </div>
                     </div>
 
-                    {/* Row 3: Travel dates (start / end) */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                      <div className="space-y-1">
+                      <div className="space-y-1" data-aos="fade-up" data-aos-delay="320">
                         <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
                           TRAVEL START DATE
                         </label>
@@ -427,7 +440,7 @@ const DummyTicketBooking = () => {
                         />
                       </div>
 
-                      <div className="space-y-1">
+                      <div className="space-y-1" data-aos="fade-up" data-aos-delay="380">
                         <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
                           TRAVEL END DATE
                         </label>
@@ -441,9 +454,8 @@ const DummyTicketBooking = () => {
                       </div>
                     </div>
 
-                    {/* Row 4: DOB + Destination country */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                      <div className="space-y-1">
+                      <div className="space-y-1" data-aos="fade-up" data-aos-delay="440">
                         <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
                           DATE OF BIRTH
                         </label>
@@ -456,7 +468,7 @@ const DummyTicketBooking = () => {
                         />
                       </div>
 
-                      <div className="space-y-1">
+                      <div className="space-y-1" data-aos="fade-up" data-aos-delay="500">
                         <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
                           DESTINATION COUNTRY
                         </label>
@@ -476,8 +488,7 @@ const DummyTicketBooking = () => {
                       </div>
                     </div>
 
-                    {/* Row 5: Passport file (PDF only) */}
-                    <div className="space-y-1">
+                    <div className="space-y-1" data-aos="fade-up" data-aos-delay="560">
                       <label className="text-[11px] sm:text-xs font-semibold text-sky-700">
                         PASSPORT COPY (PDF)
                       </label>
@@ -496,6 +507,8 @@ const DummyTicketBooking = () => {
                 <button
                   type="submit"
                   className="mt-4 w-full rounded-md bg-sky-600 hover:bg-sky-700 text-white text-sm sm:text-base font-semibold py-2.5 sm:py-3 transition-colors"
+                  data-aos="fade-up"
+                  data-aos-delay="650"
                 >
                   {activeTab === "dummyTicket"
                     ? "Buy Dummy Ticket"

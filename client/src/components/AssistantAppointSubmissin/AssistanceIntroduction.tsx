@@ -1,7 +1,21 @@
 // EmbassyConsularIntro.tsx
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function EmbassyConsularIntro() {
+  useEffect(() => {
+    AOS.init({
+      duration: 750,
+      once: false,
+      offset: 120,
+      easing: "ease-out",
+      mirror: true,
+    });
+  }, []);
+
   return (
     <section className="w-full bg-gradient-to-b from-slate-50 via-white to-slate-50 py-14 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
       {/* soft background accents (light) */}
@@ -11,23 +25,37 @@ export default function EmbassyConsularIntro() {
       <div className="max-w-5xl mx-auto relative">
         {/* Badge + Heading */}
         <div className="mb-8 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50 px-4 py-1 text-xs font-medium text-emerald-700">
+          <div
+            data-aos="fade-down"
+            className="inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50 px-4 py-1 text-xs font-medium text-emerald-700"
+          >
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
             Embassy & Consular Services – Overview
           </div>
 
-          <h1 className="mt-4 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900">
+          <h1
+            data-aos="fade-up"
+            data-aos-delay="80"
+            className="mt-4 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900"
+          >
             What Are Embassy and Consular Services?
           </h1>
 
-          <p className="mt-3 text-sm sm:text-base text-slate-500 max-w-3xl mx-auto">
+          <p
+            data-aos="fade-up"
+            data-aos-delay="140"
+            className="mt-3 text-sm sm:text-base text-slate-500 max-w-3xl mx-auto"
+          >
             A neutral explanation of how official embassies, consulates and visa
             centres handle international travel and documentation processes.
           </p>
         </div>
 
         {/* Main Card */}
-        <div className="relative rounded-3xl border border-slate-200/70 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)] overflow-hidden">
+        <div
+          data-aos="zoom-in"
+          className="relative rounded-3xl border border-slate-200/70 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)] overflow-hidden"
+        >
           {/* gradient top bar */}
           <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-emerald-500 via-sky-500 to-emerald-400" />
 
@@ -36,19 +64,31 @@ export default function EmbassyConsularIntro() {
 
           <div className="p-6 sm:p-8 lg:p-10 relative">
             {/* Intro Paragraph */}
-            <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
+            <p
+              data-aos="fade-up"
+              data-aos-delay="80"
+              className="text-sm sm:text-base text-slate-700 leading-relaxed"
+            >
               Embassy and Consular Services refer to the official processes
               handled by a country’s Embassy, Consulate, or authorised visa
-              centre (such as VFS Global). 
+              centre (such as VFS Global).
             </p>
 
             {/* Divider */}
-            <div className="my-6 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+            <div
+              data-aos="fade"
+              data-aos-delay="120"
+              className="my-6 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"
+            />
 
             {/* Two-column layout on larger screens */}
             <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-start">
               {/* Left: Steps / procedure */}
-              <div className="rounded-2xl border border-slate-200/70 bg-white p-5 sm:p-6 shadow-sm">
+              <div
+                data-aos="fade-right"
+                data-aos-delay="120"
+                className="rounded-2xl border border-slate-200/70 bg-white p-5 sm:p-6 shadow-sm"
+              >
                 <h2 className="text-base sm:text-lg font-semibold text-slate-900 mb-3">
                   Typical Procedures Involved
                 </h2>
@@ -97,16 +137,20 @@ export default function EmbassyConsularIntro() {
               </div>
 
               {/* Right: Info block / highlight box */}
-              <div className="rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4 sm:p-5">
+              <div
+                data-aos="fade-left"
+                data-aos-delay="180"
+                className="rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4 sm:p-5"
+              >
                 <h3 className="text-sm sm:text-base font-semibold text-emerald-900 mb-2">
                   How Embassies and Consulates Operate
                 </h3>
                 <p className="text-xs sm:text-sm text-emerald-900/90 leading-relaxed">
-                  Embassies and Consulates operate under strict international and
-                  government guidelines. Each country has its own requirements,
-                  document checklists, timelines, eligibility rules, and
-                  jurisdiction restrictions. Appointment availability is
-                  controlled directly by the concerned Embassy or visa centre,
+                  Embassies and Consulates operate under strict international
+                  and government guidelines. Each country has its own
+                  requirements, document checklists, timelines, eligibility
+                  rules, and jurisdiction restrictions. Appointment availability
+                  is controlled directly by the concerned Embassy or visa centre,
                   and applicants must follow the official process to secure a
                   slot.
                 </p>
@@ -123,9 +167,14 @@ export default function EmbassyConsularIntro() {
         </div>
 
         {/* Optional tiny note */}
-        <p className="mt-4 text-[11px] sm:text-xs text-slate-400 text-center">
+        <p
+          data-aos="fade-up"
+          data-aos-delay="120"
+          className="mt-4 text-[11px] sm:text-xs text-slate-400 text-center"
+        >
           This section is for general informational purposes and does not replace
-          official guidance from any Embassy, Consulate, or authorised visa centre.
+          official guidance from any Embassy, Consulate, or authorised visa
+          centre.
         </p>
       </div>
     </section>

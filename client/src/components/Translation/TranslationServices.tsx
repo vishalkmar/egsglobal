@@ -1,6 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 /* ----------------------------- Types ----------------------------- */
 type Category = {
@@ -100,6 +102,16 @@ const TRANSLATION_CARDS: TranslationCard[] = [
 
 /* --------------------------- Component --------------------------- */
 const TranslationServicesAtGlance: React.FC = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: false,
+      offset: 120,
+      easing: "ease-in-out",
+      mirror: true,
+    });
+  }, []);
+
   return (
     <section
       className="
@@ -114,6 +126,7 @@ const TranslationServicesAtGlance: React.FC = () => {
         {/* ------------------------- Heading ------------------------- */}
         <div className="max-w-3xl mx-auto text-center mb-16 space-y-4">
           <span
+            data-aos="fade-down"
             className="
               inline-block px-5 py-2 rounded-full
               text-xs font-semibold tracking-widest uppercase
@@ -124,6 +137,8 @@ const TranslationServicesAtGlance: React.FC = () => {
           </span>
 
           <h2
+            data-aos="fade-up"
+            data-aos-delay="100"
             className="
               text-3xl md:text-4xl lg:text-5xl
               font-semibold text-[#2b2b2b]
@@ -132,7 +147,11 @@ const TranslationServicesAtGlance: React.FC = () => {
             Professional Translation Solutions by EGS Group
           </h2>
 
-          <p className="text-sm md:text-base text-[#555555]">
+          <p
+            data-aos="fade-up"
+            data-aos-delay="180"
+            className="text-sm md:text-base text-[#555555]"
+          >
             High-accuracy translation services designed for legal validation,
             embassy submission, and immigration compliance.
           </p>
@@ -140,9 +159,11 @@ const TranslationServicesAtGlance: React.FC = () => {
 
         {/* -------------------------- Cards -------------------------- */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {TRANSLATION_CARDS.map((card) => (
+          {TRANSLATION_CARDS.map((card, cardIndex) => (
             <div
               key={card.id}
+              data-aos={cardIndex === 0 ? "fade-right" : "fade-left"}
+              data-aos-delay={cardIndex * 120}
               className="
                 relative rounded-3xl
                 bg-[#fffdfa]
@@ -166,6 +187,8 @@ const TranslationServicesAtGlance: React.FC = () => {
                 {/* Card Header */}
                 <div className="space-y-3">
                   <span
+                    data-aos="zoom-in"
+                    data-aos-delay={cardIndex * 120 + 140}
                     className="
                       inline-block px-4 py-1.5 rounded-full
                       text-[11px] font-semibold tracking-wide
@@ -175,20 +198,30 @@ const TranslationServicesAtGlance: React.FC = () => {
                     {card.tagLine}
                   </span>
 
-                  <h3 className="text-2xl font-semibold text-[#2b2b2b]">
+                  <h3
+                    data-aos="fade-up"
+                    data-aos-delay={cardIndex * 120 + 180}
+                    className="text-2xl font-semibold text-[#2b2b2b]"
+                  >
                     {card.heading}
                   </h3>
 
-                  <p className="text-sm text-[#5a5a5a] leading-relaxed">
+                  <p
+                    data-aos="fade-up"
+                    data-aos-delay={cardIndex * 120 + 240}
+                    className="text-sm text-[#5a5a5a] leading-relaxed"
+                  >
                     {card.description}
                   </p>
                 </div>
 
-                {/* Categories (FIXED) */}
+                {/* Categories */}
                 <div className="space-y-5">
-                  {card.categories.map((cat) => (
+                  {card.categories.map((cat, catIndex) => (
                     <div
                       key={cat.title}
+                      data-aos="zoom-in"
+                      data-aos-delay={cardIndex * 120 + 260 + catIndex * 140}
                       className="
                         group relative overflow-hidden
                         rounded-2xl px-6 py-5
@@ -210,9 +243,13 @@ const TranslationServicesAtGlance: React.FC = () => {
                       </h4>
 
                       <ul className="space-y-2">
-                        {cat.items.map((item) => (
+                        {cat.items.map((item, itemIndex) => (
                           <li
                             key={item}
+                            data-aos="fade-up"
+                            data-aos-delay={
+                              cardIndex * 120 + 320 + catIndex * 140 + itemIndex * 35
+                            }
                             className="flex items-start gap-3 text-sm text-white/90"
                           >
                             <span
@@ -233,7 +270,11 @@ const TranslationServicesAtGlance: React.FC = () => {
                 </div>
 
                 {/* Footer */}
-                <div className="pt-4 border-t border-[#e1d6bf]">
+                <div
+                  data-aos="fade-up"
+                  data-aos-delay={cardIndex * 120 + 720}
+                  className="pt-4 border-t border-[#e1d6bf]"
+                >
                   <p className="text-xs text-[#6a6a6a]">
                     All translations are handled by EGS Group’s certified
                     linguists and undergo multi-level quality checks.

@@ -6,6 +6,10 @@ import passportImage from "@assets/generated_images/passport_with_visa_stamps.pn
 import travelersImage from "@assets/generated_images/happy_travelers_at_airport.png";
 import consultationImage from "@assets/generated_images/customer_service_consultation.png";
 
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+
 const slides = [
   {
     image: airportImage,
@@ -53,8 +57,17 @@ export default function HeroCarousel() {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
+   useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true, // animation only once
+      offset: 80,
+      easing: "ease-in-out",
+    });
+  }, []);
+
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden" data-aos="fade-down">
       {/* Curved Container with Rounded Bottom */}
       <div className="relative h-[500px] md:h-[600px] rounded-b-[3rem] md:rounded-b-[4rem] overflow-hidden shadow-2xl">
         {/* Slides */}

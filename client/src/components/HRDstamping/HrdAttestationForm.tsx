@@ -5,6 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { RotateCw } from "lucide-react";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+
 
 const DOCUMENT_OPTIONS: Record<string, string[]> = {
   "Commercial Documents": [
@@ -70,6 +75,18 @@ function generateCaptcha() {
 }
 
 export default function HRDAttestationSection() {
+
+    useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: false,   // ✅ repeat on every scroll in/out
+      offset: 80,
+      easing: "ease-in-out",
+     
+    });
+  }, []);
+  
+
   const [form, setForm] = useState<FormState>(initialFormState);
   const [captcha, setCaptcha] = useState<string>(generateCaptcha);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -135,7 +152,7 @@ export default function HRDAttestationSection() {
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         <div className="grid gap-10 md:grid-cols-[1.1fr,1fr] items-start">
           {/* LEFT: Content */}
-          <div>
+          <div data-aos="fade-right" >
             <h2 className="text-3xl md:text-5xl text-[#10b9e8] font-semibold text-slate-900 mb-3">
               HRD Attestation Services
             </h2>
@@ -170,7 +187,7 @@ export default function HRDAttestationSection() {
           </div>
 
           {/* RIGHT: Form card */}
-          <div className="rounded-2xl bg-gradient-to-br from-sky-500 via-blue-600 to-indigo-700 p-[1px] shadow-lg">
+          <div  data-aos="fade-left"  className="rounded-2xl bg-gradient-to-br from-sky-500 via-blue-600 to-indigo-700 p-[1px] shadow-lg">
             <div className="rounded-2xl bg-gradient-to-b from-sky-500/80 via-blue-600/90 to-indigo-700/95 p-6 md:p-7 text-white">
               <h3 className="text-xl md:text-2xl font-semibold mb-2">
                 Looking for Services Related to your Attestation Needs?

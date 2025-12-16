@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 type VisaType = "Tourist" | "Work" | "Business";
 
@@ -58,6 +60,16 @@ export default function VisaBannerWithEVisaForm() {
   });
 
   const [attachments, setAttachments] = useState<(File | null)[]>([null]);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 750,
+      once: false,
+      offset: 120,
+      easing: "ease-out",
+      mirror: true,
+    });
+  }, []);
 
   const isFormValid = useMemo(() => {
     if (!form.name.trim()) return false;
@@ -120,24 +132,35 @@ export default function VisaBannerWithEVisaForm() {
         <div
           className="absolute inset-0 bg-center bg-cover"
           style={{
-        background:
-      "radial-gradient(900px 500px at 18% 25%, rgba(99,102,241,0.45) 0%, rgba(15,23,42,0) 60%)," +
-      "radial-gradient(700px 450px at 85% 30%, rgba(56,189,248,0.30) 0%, rgba(15,23,42,0) 55%)," +
-      "radial-gradient(800px 520px at 55% 85%, rgba(244,114,182,0.18) 0%, rgba(15,23,42,0) 60%)," +
-      "linear-gradient(135deg, rgba(2,6,23,1) 0%, rgba(15,23,42,1) 35%, rgba(2,6,23,1) 100%)",
-       }}
+            background:
+              "radial-gradient(900px 500px at 18% 25%, rgba(99,102,241,0.45) 0%, rgba(15,23,42,0) 60%)," +
+              "radial-gradient(700px 450px at 85% 30%, rgba(56,189,248,0.30) 0%, rgba(15,23,42,0) 55%)," +
+              "radial-gradient(800px 520px at 55% 85%, rgba(244,114,182,0.18) 0%, rgba(15,23,42,0) 60%)," +
+              "linear-gradient(135deg, rgba(2,6,23,1) 0%, rgba(15,23,42,1) 35%, rgba(2,6,23,1) 100%)",
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/35" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-start">
-            {/* LEFT */}
-            <div className="text-white pt-10 md:pt-14">
-              <span className="inline-flex items-center rounded-full bg-rose-500 px-4 py-2 text-xs sm:text-sm font-semibold text-white shadow-lg">
+            {/* LEFT: whole block left->right, inside content fade-down */}
+            <div
+              data-aos="fade-right"
+              className="text-white pt-10 md:pt-14"
+            >
+              <span
+                data-aos="fade-down"
+                data-aos-delay="80"
+                className="inline-flex items-center rounded-full bg-rose-500 px-4 py-2 text-xs sm:text-sm font-semibold text-white shadow-lg"
+              >
                 {HERO.badge}
               </span>
 
-              <h1 className="mt-6 text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-bold leading-tight">
+              <h1
+                data-aos="fade-down"
+                data-aos-delay="140"
+                className="mt-6 text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-bold leading-tight"
+              >
                 {HERO.titleLines.map((line, i) => (
                   <span key={i} className="block">
                     {line}
@@ -145,11 +168,19 @@ export default function VisaBannerWithEVisaForm() {
                 ))}
               </h1>
 
-              <p className="mt-5 text-sm sm:text-base md:text-lg text-slate-100 max-w-xl leading-relaxed">
+              <p
+                data-aos="fade-down"
+                data-aos-delay="210"
+                className="mt-5 text-sm sm:text-base md:text-lg text-slate-100 max-w-xl leading-relaxed"
+              >
                 {HERO.description}
               </p>
 
-              <div className="mt-7 grid grid-cols-2 gap-3 max-w-xl">
+              <div
+                data-aos="fade-down"
+                data-aos-delay="280"
+                className="mt-7 grid grid-cols-2 gap-3 max-w-xl"
+              >
                 <div className="rounded-2xl border border-white/15 bg-white/10 p-4">
                   <p className="text-xs text-slate-200">Avg. Processing</p>
                   <p className="text-base font-semibold">2–7 Working Days</p>
@@ -161,8 +192,11 @@ export default function VisaBannerWithEVisaForm() {
               </div>
             </div>
 
-            {/* RIGHT (Compact 2-col form) */}
-            <div className="bg-white/95 backdrop-blur rounded-2xl border border-white/20 shadow-2xl p-6 md:p-7 mt-4 md:mt-0">
+            {/* RIGHT: form zoom-in */}
+            <div
+              data-aos="zoom-in"
+              className="bg-white/95 backdrop-blur rounded-2xl border border-white/20 shadow-2xl p-6 md:p-7 mt-4 md:mt-0"
+            >
               <h2 className="text-xl md:text-2xl font-semibold text-slate-900">
                 Apply for E-Visa
               </h2>
@@ -171,9 +205,7 @@ export default function VisaBannerWithEVisaForm() {
               </p>
 
               <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-                {/* Two-column grid for inputs */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Name */}
                   <div>
                     <label className="text-sm font-medium text-slate-700">
                       Name <span className="text-rose-500">*</span>
@@ -188,7 +220,6 @@ export default function VisaBannerWithEVisaForm() {
                     />
                   </div>
 
-                  {/* Email */}
                   <div>
                     <label className="text-sm font-medium text-slate-700">
                       Email <span className="text-rose-500">*</span>
@@ -203,7 +234,6 @@ export default function VisaBannerWithEVisaForm() {
                     />
                   </div>
 
-                  {/* Phone */}
                   <div>
                     <label className="text-sm font-medium text-slate-700">
                       Phone <span className="text-rose-500">*</span>
@@ -218,7 +248,6 @@ export default function VisaBannerWithEVisaForm() {
                     />
                   </div>
 
-                  {/* Visa Type */}
                   <div>
                     <label className="text-sm font-medium text-slate-700">
                       Visa Type <span className="text-rose-500">*</span>
@@ -236,7 +265,6 @@ export default function VisaBannerWithEVisaForm() {
                     </select>
                   </div>
 
-                  {/* Country */}
                   <div>
                     <label className="text-sm font-medium text-slate-700">
                       Select Country <span className="text-rose-500">*</span>
@@ -256,7 +284,6 @@ export default function VisaBannerWithEVisaForm() {
                     </select>
                   </div>
 
-                  {/* Days */}
                   <div>
                     <label className="text-sm font-medium text-slate-700">
                       No. of Days <span className="text-rose-500">*</span>
@@ -275,7 +302,6 @@ export default function VisaBannerWithEVisaForm() {
                   </div>
                 </div>
 
-                {/* Attachments (full width) */}
                 <div>
                   <div className="flex items-center justify-between gap-3">
                     <label className="text-sm font-medium text-slate-700">
@@ -341,7 +367,8 @@ export default function VisaBannerWithEVisaForm() {
                   </div>
 
                   <p className="mt-2 text-xs text-slate-500">
-                    Supported: all image formats + PDF. Every attachment field is mandatory.
+                    Supported: all image formats + PDF. Every attachment field is
+                    mandatory.
                   </p>
                 </div>
 
@@ -357,8 +384,6 @@ export default function VisaBannerWithEVisaForm() {
                 >
                   Submit Application
                 </button>
-
-               
               </form>
             </div>
           </div>

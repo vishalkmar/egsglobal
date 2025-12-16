@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 interface PccFormData {
   name: string;
@@ -20,10 +22,20 @@ const PccLegalizationHero: React.FC = () => {
     phone: "",
     country: "",
     companyName: "",
-    noOfDocuments:1 ,
+    noOfDocuments: 1,
   });
 
   const [files, setFiles] = useState<(File | null)[]>([null]);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: false,
+      offset: 120,
+      easing: "ease-in-out",
+      mirror: true,
+    });
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -74,9 +86,11 @@ const PccLegalizationHero: React.FC = () => {
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 items-stretch">
-
-          {/* LEFT TEXT */}
-          <div className="flex flex-col justify-center text-white space-y-6">
+          {/* LEFT TEXT (Left -> Right fade) */}
+          <div
+            data-aos="fade-right"
+            className="flex flex-col justify-center text-white space-y-6"
+          >
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
               PCC Legalization & Apostille
             </h1>
@@ -94,8 +108,12 @@ const PccLegalizationHero: React.FC = () => {
             </ul>
           </div>
 
-          {/* RIGHT FORM */}
-          <div className="bg-white/95 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.45)] px-6 py-8">
+          {/* RIGHT FORM (Right -> Left fade) */}
+          <div
+            data-aos="fade-left"
+            data-aos-delay="120"
+            className="bg-white/95 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.45)] px-6 py-8"
+          >
             <div className="text-center mb-6">
               <div className="h-11 w-11 mx-auto rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 text-white font-bold flex items-center justify-center">
                 EGS
@@ -106,7 +124,6 @@ const PccLegalizationHero: React.FC = () => {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
-
               {/* ROW 1 */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input
@@ -148,7 +165,9 @@ const PccLegalizationHero: React.FC = () => {
                 >
                   <option value="">Select Country *</option>
                   {COUNTRIES.map((c) => (
-                    <option key={c} value={c}>{c}</option>
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
                   ))}
                 </select>
               </div>

@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 type TabKey = "what" | "benefits" | "why";
 
@@ -172,7 +174,6 @@ const TabButton: React.FC<{
       ${active ? "text-white" : "text-slate-200 hover:text-white"}
     `}
   >
-    {/* underline */}
     <span
       className={`
         absolute left-0 bottom-0 h-[2px] w-full transition-opacity
@@ -183,7 +184,6 @@ const TabButton: React.FC<{
         }
       `}
     />
-    {/* active pill bg */}
     <span
       className={`
         absolute inset-0 rounded-md -z-10 transition-opacity
@@ -202,6 +202,17 @@ const TranslationInfoSections: React.FC = () => {
   const [immigrationTab, setImmigrationTab] = useState<TabKey>("what");
   const [certificateTab, setCertificateTab] = useState<TabKey>("what");
 
+  // ✅ soft AOS only on section/card, not heavy on every line
+  useEffect(() => {
+    AOS.init({
+      duration: 700,
+      once: false,
+      offset: 120,
+      easing: "ease-out",
+      mirror: true,
+    });
+  }, []);
+
   return (
     <section className="py-16 md:py-20 bg-gradient-to-b from-slate-50 via-white to-slate-50 relative overflow-hidden">
       {/* soft background accents (light) */}
@@ -212,17 +223,31 @@ const TranslationInfoSections: React.FC = () => {
         {/* IMMIGRATION */}
         <div>
           <div className="text-center md:text-left">
-            <h2 className="text-3xl md:text-4xl font-semibold text-slate-900">
+            <h2
+              data-aos="fade-up"
+              className="text-3xl md:text-4xl font-semibold text-slate-900"
+            >
               Immigration Translation Services
             </h2>
-            <div className="mt-3 h-[3px] w-32 bg-gradient-to-r from-violet-600 to-fuchsia-600 mx-auto md:mx-0 rounded-full" />
-            <p className="mt-3 text-sm md:text-base text-slate-600 max-w-2xl mx-auto md:mx-0">
+            <div
+              data-aos="fade-up"
+              data-aos-delay="80"
+              className="mt-3 h-[3px] w-32 bg-gradient-to-r from-violet-600 to-fuchsia-600 mx-auto md:mx-0 rounded-full"
+            />
+            <p
+              data-aos="fade-up"
+              data-aos-delay="140"
+              className="mt-3 text-sm md:text-base text-slate-600 max-w-2xl mx-auto md:mx-0"
+            >
               Clear, compliant translations for visa files, residency applications and official submissions.
             </p>
           </div>
 
-          {/* CARD (keep blush/violet gradient inside) */}
-          <div className="mt-8 rounded-3xl overflow-hidden border border-violet-200/60 bg-gradient-to-br from-[#120B2A] via-[#0C1533] to-[#120B2A] shadow-[0_18px_55px_rgba(2,6,23,0.18)]">
+          {/* CARD */}
+          <div
+            data-aos="fade-right"
+            className="mt-8 rounded-3xl overflow-hidden border border-violet-200/60 bg-gradient-to-br from-[#120B2A] via-[#0C1533] to-[#120B2A] shadow-[0_18px_55px_rgba(2,6,23,0.18)]"
+          >
             {/* Tabs */}
             <div className="flex gap-1 border-b border-white/10 bg-black/25 px-2 py-2">
               <TabButton
@@ -242,13 +267,13 @@ const TranslationInfoSections: React.FC = () => {
               />
             </div>
 
-            {/* Content */}
+            {/* Content (smooth fade, not heavy) */}
             <div className="p-5 md:p-7 text-sm md:text-base text-slate-200 leading-relaxed">
               <h3 className="text-xl md:text-2xl font-semibold text-white mb-3">
                 {ImmigrationTabs[immigrationTab].heading}
               </h3>
 
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5 text-slate-200">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5 text-slate-200 transition-opacity duration-200">
                 {ImmigrationTabs[immigrationTab].content}
               </div>
 
@@ -262,17 +287,31 @@ const TranslationInfoSections: React.FC = () => {
         {/* CERTIFICATE */}
         <div>
           <div className="text-center md:text-right">
-            <h2 className="text-3xl md:text-4xl font-semibold text-slate-900">
+            <h2
+              data-aos="fade-up"
+              className="text-3xl md:text-4xl font-semibold text-slate-900"
+            >
               Certificate Translation Services
             </h2>
-            <div className="mt-3 h-[3px] w-32 bg-gradient-to-r from-violet-600 to-fuchsia-600 mx-auto md:ml-auto md:mr-0 rounded-full" />
-            <p className="mt-3 text-sm md:text-base text-slate-600 max-w-2xl mx-auto md:ml-auto md:mr-0">
+            <div
+              data-aos="fade-up"
+              data-aos-delay="80"
+              className="mt-3 h-[3px] w-32 bg-gradient-to-r from-violet-600 to-fuchsia-600 mx-auto md:ml-auto md:mr-0 rounded-full"
+            />
+            <p
+              data-aos="fade-up"
+              data-aos-delay="140"
+              className="mt-3 text-sm md:text-base text-slate-600 max-w-2xl mx-auto md:ml-auto md:mr-0"
+            >
               Embassy-ready certificate translations with accurate formatting and terminology.
             </p>
           </div>
 
-          {/* CARD (keep blush/violet gradient inside) */}
-          <div className="mt-8 rounded-3xl overflow-hidden border border-violet-200/60 bg-gradient-to-br from-[#120B2A] via-[#0C1533] to-[#120B2A] shadow-[0_18px_55px_rgba(2,6,23,0.18)]">
+          {/* CARD */}
+          <div
+            data-aos="fade-left"
+            className="mt-8 rounded-3xl overflow-hidden border border-violet-200/60 bg-gradient-to-br from-[#120B2A] via-[#0C1533] to-[#120B2A] shadow-[0_18px_55px_rgba(2,6,23,0.18)]"
+          >
             {/* Tabs RIGHT */}
             <div className="flex justify-end gap-1 border-b border-white/10 bg-black/25 px-2 py-2">
               <TabButton
@@ -298,7 +337,7 @@ const TranslationInfoSections: React.FC = () => {
                 {CertificateTabs[certificateTab].heading}
               </h3>
 
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5 text-slate-200">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5 text-slate-200 transition-opacity duration-200">
                 {CertificateTabs[certificateTab].content}
               </div>
 

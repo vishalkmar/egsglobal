@@ -2,7 +2,22 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const TranslationImageSlider: React.FC = () => {
+
+    useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: false,   // ✅ repeat on every scroll in/out
+      offset: 80,
+      easing: "ease-in-out",
+     
+    });
+  }, []);
+  
+
   const [position, setPosition] = useState(50); // 0–100
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -65,7 +80,7 @@ const TranslationImageSlider: React.FC = () => {
 
   return (
     <section className="py-16 md:py-20 bg-white">
-      <div className="max-w-5xl mx-auto px-4 md:px-6">
+      <div className="max-w-5xl mx-auto px-4 md:px-6" data-aos="zoom-in">
         {/* Heading */}
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-semibold text-purple-700">

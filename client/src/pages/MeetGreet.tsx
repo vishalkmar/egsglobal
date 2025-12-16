@@ -10,6 +10,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MeetGreetServices from "@/components/meetandgreet/MeetandGreetServices";
 
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const HEADING_TEXT = "Premium Guest Handling";
 
 interface MeetGreetFormData {
@@ -23,6 +27,18 @@ interface MeetGreetFormData {
 }
 
 const MeetGreetBanner: React.FC = () => {
+
+    
+    useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: false,   // ✅ repeat on every scroll in/out
+      offset: 80,
+      easing: "ease-in-out",
+     
+    });
+  }, []);
+
   const [typedHeading, setTypedHeading] = useState("");
   const [formData, setFormData] = useState<MeetGreetFormData>({
     name: "",
@@ -84,7 +100,7 @@ const MeetGreetBanner: React.FC = () => {
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* LEFT: Text content */}
-            <div className="flex flex-col gap-6 sm:gap-8 lg:gap-10 order-1 text-white">
+            <div  data-aos="fade-right"  className="flex flex-col gap-6 sm:gap-8 lg:gap-10 order-1 text-white">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight max-w-3xl">
                 <span className="text-white">{typedHeading}</span>
                 <span className="inline-block w-[10px] ml-[2px] bg-sky-400/80 animate-pulse rounded-sm align-middle" />
@@ -111,7 +127,7 @@ const MeetGreetBanner: React.FC = () => {
             </div>
 
             {/* RIGHT: FORM CARD */}
-            <div className="order-2 lg:order-2 flex items-stretch">
+            <div  data-aos="zoom-in" className="order-2 lg:order-2 flex items-stretch">
               <form
                 onSubmit={handleSubmit}
                 className="w-full bg-white/95 backdrop-blur-[4px] text-slate-900 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.45)] px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-9 space-y-4"

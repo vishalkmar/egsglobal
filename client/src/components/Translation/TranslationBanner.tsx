@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 type Slide = {
   id: number;
   image: string;
   badge: string;
   titleLines: string[];
-  description: string; // 1 short EGS-style line
- 
+  description: string;
+  primaryCta?: string;
 };
 
 const slides: Slide[] = [
@@ -16,29 +16,19 @@ const slides: Slide[] = [
     id: 1,
     image: "/translation/bone.jpg",
     badge: "Certified Translation by EGS Group",
-    titleLines: [
-      "Certificate Translation",
-      "You Can Trust",
-      "for Global Use",
-    ],
+    titleLines: ["Certificate Translation", "You Can Trust", "for Global Use"],
     description:
       "EGS Group delivers accurate, legally valid translations for your degrees, diplomas and official certificates.",
     primaryCta: "Enquire for Translation",
-   
   },
   {
     id: 2,
     image: "/translation/two.jpg",
     badge: "Immigration-Ready Documents",
-    titleLines: [
-      "Immigration Translation",
-      "for Visa & PR",
-      "Applications",
-    ],
+    titleLines: ["Immigration Translation", "for Visa & PR", "Applications"],
     description:
       "Specialised translations for immigration, PR and visa files aligned with embassy and consulate requirements.",
     primaryCta: "Get Immigration Support",
-    
   },
 ];
 
@@ -57,16 +47,17 @@ const TranslationBannerCarousel: React.FC = () => {
 
   useEffect(() => {
     if (isHovering) return;
-
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
     }, AUTO_SLIDE_INTERVAL);
-
     return () => clearInterval(timer);
   }, [isHovering]);
 
   const next = () => goToSlide(current + 1);
   const prev = () => goToSlide(current - 1);
+
+  // ✅ changing key triggers animation on every slide change
+  const animKey = useMemo(() => `slide-${slides[current].id}`, [current]);
 
   return (
     <section
@@ -86,7 +77,7 @@ const TranslationBannerCarousel: React.FC = () => {
               className="absolute inset-0 bg-center"
               style={{
                 backgroundImage: `url(${slide.image})`,
-                backgroundSize: "100% 100%", // same as your visa banner
+                backgroundSize: "100% 100%",
               }}
             />
 
@@ -95,28 +86,41 @@ const TranslationBannerCarousel: React.FC = () => {
 
             {/* Content */}
             <div className="relative z-10 max-w-6xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center py-16 md:py-24">
-              <div className="max-w-xl md:max-w-2xl space-y-6 md:space-y-8">
-                {/* Badge */}
-                <span className="inline-flex items-center rounded-full bg-rose-500 px-4 py-2 text-xs sm:text-sm font-semibold text-white shadow-lg">
+              {/* ✅ animated content wrapper */}
+              <div
+                key={animKey}
+                className="max-w-xl md:max-w-2xl space-y-6 md:space-y-8"
+              >
+                {/* Badge - fade down */}
+                <span className="inline-flex items-center rounded-full bg-rose-500 px-4 py-2 text-xs sm:text-sm font-semibold text-white shadow-lg animate-fade-down">
                   {slide.badge}
                 </span>
 
-                {/* Heading */}
+                {/* Heading - staggered lines */}
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-bold leading-tight text-white space-y-1">
                   {slide.titleLines.map((line, i) => (
-                    <span key={i} className="block">
+                    <span
+                      key={i}
+                      className={[
+                        "block opacity-0 translate-y-2",
+                        i === 0
+                          ? "animate-slide-up-1"
+                          : i === 1
+                          ? "animate-slide-up-2"
+                          : "animate-slide-up-3",
+                      ].join(" ")}
+                    >
                       {line}
                     </span>
                   ))}
                 </h1>
 
-                {/* Short EGS-style line */}
-                <p className="text-sm sm:text-base md:text-lg text-slate-100 max-w-xl leading-relaxed">
+                {/* Description - fade/slide */}
+                <p className="text-sm sm:text-base md:text-lg text-slate-100 max-w-xl leading-relaxed opacity-0 translate-y-2 animate-fade-up-delayed">
                   {slide.description}
                 </p>
 
-                {/* CTA buttons */}
-               
+                {/* CTA placeholder (if you add later, you can animate it too) */}
               </div>
             </div>
           </div>
@@ -156,6 +160,47 @@ const TranslationBannerCarousel: React.FC = () => {
           />
         ))}
       </div>
+
+      {/* ✅ animations (no extra libs) */}
+      <style jsx>{`
+        @keyframes fadeDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes fadeUp {
+          from {
+            opacity: 0;
+            transform: translateY(12px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-fade-down {
+          animation: fadeDown 650ms ease-out both;
+        }
+
+        .animate-slide-up-1 {
+          animation: fadeUp 650ms ease-out 120ms both;
+        }
+        .animate-slide-up-2 {
+          animation: fadeUp 650ms ease-out 220ms both;
+        }
+        .animate-slide-up-3 {
+          animation: fadeUp 650ms ease-out 320ms both;
+        }
+        .animate-fade-up-delayed {
+          animation: fadeUp 700ms ease-out 420ms both;
+        }
+      `}</style>
     </section>
   );
 };

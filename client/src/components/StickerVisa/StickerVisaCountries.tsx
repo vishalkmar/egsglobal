@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 type Destination = {
   name: string;
@@ -152,6 +156,21 @@ export default function StickerVisaDestinations() {
   const [visibleCount, setVisibleCount] = useState(6);
   const visibleDestinations = STICKER_DESTINATIONS.slice(0, visibleCount);
 
+  useEffect(() => {
+    AOS.init({
+      duration: 700,
+      once: false, // repeat on scroll
+      offset: 120,
+      easing: "ease-out",
+      mirror: true,
+    });
+  }, []);
+
+  // ✅ when "Load More" adds new cards, tell AOS to recalc
+  useEffect(() => {
+    AOS.refreshHard();
+  }, [visibleCount]);
+
   const handleLoadMore = () => setVisibleCount(STICKER_DESTINATIONS.length);
 
   return (
@@ -159,22 +178,36 @@ export default function StickerVisaDestinations() {
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-10">
-          <p className="text-sm font-semibold tracking-[0.2em] text-rose-500 uppercase">
+          <p
+            data-aos="fade-down"
+            className="text-sm font-semibold tracking-[0.2em] text-rose-500 uppercase"
+          >
             Handpicked for you
           </p>
-          <h2 className="text-3xl md:text-4xl font-semibold text-slate-900 mt-2">
+          <h2
+            data-aos="fade-up"
+            data-aos-delay="80"
+            className="text-3xl md:text-4xl font-semibold text-slate-900 mt-2"
+          >
             Sticker Visa Destinations
           </h2>
-          <p className="text-slate-500 text-sm md:text-base mt-2">
+          <p
+            data-aos="fade-up"
+            data-aos-delay="140"
+            className="text-slate-500 text-sm md:text-base mt-2"
+          >
             Popular countries where a physical visa sticker is required.
           </p>
         </div>
 
         {/* Grid */}
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {visibleDestinations.map((dest) => (
+          {visibleDestinations.map((dest, index) => (
             <article
               key={dest.name}
+              data-aos="zoom-in"
+              // ✅ one-one card with delay (stagger). cap delay so it doesn't feel slow.
+              data-aos-delay={Math.min(index * 120, 720)}
               className="bg-white rounded-3xl shadow-[0_10px_35px_rgba(15,23,42,0.08)] overflow-hidden border border-slate-100 flex flex-col"
             >
               {/* Image section */}
@@ -197,7 +230,7 @@ export default function StickerVisaDestinations() {
                   <h3 className="text-base md:text-lg font-semibold text-slate-900">
                     {dest.name}
                   </h3>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-wrap justify-end">
                     <span className="bg-slate-100 text-[11px] font-semibold text-slate-700 px-3 py-1 rounded-full">
                       {dest.visaType}
                     </span>
@@ -232,6 +265,7 @@ export default function StickerVisaDestinations() {
             <button
               type="button"
               onClick={handleLoadMore}
+              data-aos="fade-up"
               className="px-6 py-2.5 rounded-full bg-rose-500 text-white text-sm font-semibold shadow-md hover:bg-rose-600 transition"
             >
               Load More
