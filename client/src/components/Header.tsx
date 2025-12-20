@@ -195,13 +195,15 @@ export default function Header() {
             </nav>
 
             {/* Desktop Login */}
-            <Button
-              data-testid="button-login"
-              size="sm"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-            >
-              Login
-            </Button>
+            <Link href="/login">
+              <Button
+                data-testid="button-login"
+                size="sm"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white cursor-pointer"
+              >
+                Login
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu */}
@@ -351,13 +353,15 @@ export default function Header() {
 
                     {/* Mobile Login Button */}
                     <div className="pt-4">
-                      <Button
-                        data-testid="button-mobile-login"
-                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        Login
-                      </Button>
+                      <Link href="/login">
+                        <Button
+                          data-testid="button-mobile-login"
+                          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white cursor-pointer"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          Login
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </nav>
